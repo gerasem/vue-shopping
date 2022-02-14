@@ -1,21 +1,41 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <router-view/>
 </template>
 
+<script>
+import {defineComponent, watch, ref, computed} from 'vue'
+import {useRouter} from 'vue-router'
+import {useI18n} from 'vue-i18n'
+import {SUPPORT_LOCALES} from './i18n'
+
+export default defineComponent({
+
+  data() {
+    return {
+    }
+  },
+
+  setup() {
+    const router = useRouter()
+    const {t, locale} = useI18n({useScope: 'global'})
+    /**
+     * select locale value for language select form
+     *
+     * If you use the vue-i18n composer `locale` property directly, it will be re-rendering component when this property is changed,
+     * before dynamic import was used to asynchronously load and apply locale messages
+     * To avoid this, use the another locale reactive value.
+     */
+    const currentLocale = ref(locale.value)
+    // sync to switch locale from router locale path
+    watch(router.currentRoute, route => {
+      currentLocale.value = route.params.locale
+    })
+
+    return {t, locale, currentLocale, supportLocales: SUPPORT_LOCALES}
+  },
+
+})
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
