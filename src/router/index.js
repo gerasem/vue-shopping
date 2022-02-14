@@ -8,7 +8,7 @@ function load(component) {
 
 export function setupRouter(i18n) {
     const locale =
-        i18n.mode === 'legacy' ? i18n.global.locale : i18n.global.locale.value
+        i18n.mode === 'legacy' ? i18n.global.locale : i18n.global.locale.value;
 
     // setup routes
     const routes = [
@@ -41,21 +41,21 @@ export function setupRouter(i18n) {
     const router = createRouter({
         history: createWebHistory(),
         routes
-    })
+    });
 
     // navigation guards
     router.beforeEach(async to => {
-        const paramsLocale = to.params.locale
+        const paramsLocale = to.params.locale;
         // use locale if paramsLocale is not in SUPPORT_LOCALES
         if (!SUPPORT_LOCALES.includes(paramsLocale)) {
-            return `/${locale}`
+            return `/${locale}`;
         }
 
-        await loadLocaleMessages(i18n, paramsLocale)
+        await loadLocaleMessages(i18n, paramsLocale);
 
         // set i18n language
         setI18nLanguage(i18n, paramsLocale)
-    })
+    });
 
     return router
 }

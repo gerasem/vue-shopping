@@ -10,10 +10,11 @@ const i18n = setupI18n({
     missingWarn: false,
     locale: import.meta.env.VUE_APP_I18N_LOCALE || 'de',
     fallbackLocale: import.meta.env.VUE_APP_I18N_LOCALE || 'de'
-})
-const router = setupRouter(i18n)
+});
+
+const router = setupRouter(i18n);
 
 createApp(App)
     .use(router)
     .use(i18n)
-    .mount('#app')
+    .mount('#app');

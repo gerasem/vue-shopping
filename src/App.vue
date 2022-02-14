@@ -16,8 +16,8 @@ export default defineComponent({
   },
 
   setup() {
-    const router = useRouter()
-    const {t, locale} = useI18n({useScope: 'global'})
+    const router = useRouter();
+    const {t, locale} = useI18n({useScope: 'global'});
     /**
      * select locale value for language select form
      *
@@ -25,13 +25,13 @@ export default defineComponent({
      * before dynamic import was used to asynchronously load and apply locale messages
      * To avoid this, use the another locale reactive value.
      */
-    const currentLocale = ref(locale.value)
+    const currentLocale = ref(locale.value);
     // sync to switch locale from router locale path
     watch(router.currentRoute, route => {
-      currentLocale.value = route.params.locale
-    })
+      currentLocale.value = route.params.locale;
+    });
 
-    return {t, locale, currentLocale, supportLocales: SUPPORT_LOCALES}
+    return {t, locale, currentLocale, supportLocales: SUPPORT_LOCALES};
   },
 
 })

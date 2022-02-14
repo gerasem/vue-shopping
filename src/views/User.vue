@@ -1,5 +1,6 @@
 <template>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ducimus eaque est expedita inventore iusto necessitatibus porro quidem quisquam tempore?
+    <router-link to="/">go home</router-link>
 </template>
 
 <script>
