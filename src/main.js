@@ -1,8 +1,8 @@
 import {createApp} from 'vue'
 import App from './App.vue'
-
-import {setupI18n} from '@/i18n'
-import {setupRouter} from '@/router'
+import {setupI18n} from './i18n'
+import {setupRouter} from './router'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 const i18n = setupI18n({
     globalInjection: true,

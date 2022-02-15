@@ -2,7 +2,7 @@ import {nextTick} from 'vue'
 import {createI18n} from 'vue-i18n'
 
 
-export const SUPPORT_LOCALES = import.meta.env.VITE_VUE_APP_I18N_SUPPORTED_LOCALES.split(',') || ['de']
+export const SUPPORT_LOCALES =  import.meta.env.VITE_VUE_APP_I18N_SUPPORTED_LOCALES ? import.meta.env.VITE_VUE_APP_I18N_SUPPORTED_LOCALES.split(',') : ['de']
 
 function checkDefaultLanguage() {
     let matched = null;

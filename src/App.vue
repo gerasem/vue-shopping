@@ -1,4 +1,10 @@
 <template>
+  <template v-if="loading">
+
+  </template>
+  <template v-else>
+
+  </template>
   <router-view/>
 </template>
 
@@ -12,6 +18,7 @@ export default defineComponent({
 
   data() {
     return {
+      loading: false,
     }
   },
 

@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.26.0",
+    "bootstrap-icons": "^1.8.1",
     "vue": "^3.2.25",
     "vue-i18n": "^9.1.9",
     "vue-router": "^4.0.12"
