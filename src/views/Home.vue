@@ -1,5 +1,5 @@
 <template>
-test home
+<p>test home</p>
 </template>
 
 <script>
@@ -8,6 +8,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+p{
+  color: $test;
+}
 </style>

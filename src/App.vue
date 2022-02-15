@@ -3,9 +3,8 @@
 
   </template>
   <template v-else>
-
+    <router-view/>
   </template>
-  <router-view/>
 </template>
 
 <script>
