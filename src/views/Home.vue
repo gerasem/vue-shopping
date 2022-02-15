@@ -1,15 +1,15 @@
 <template>
-<p>test home</p>
+  <p>test home</p>
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
 }
 </script>
 
 <style scoped lang="scss">
-p{
-  color: $test;
+p {
+
 }
 </style>

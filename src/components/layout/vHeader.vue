@@ -1,18 +1,18 @@
 <template>
   <header>
-
+    Header
   </header>
 </template>
 
 <script>
 import {useI18n} from 'vue-i18n'
+import Home from "../../views/Home";
 
 export default {
-  props: {
-
-  },
+  props: {},
 
   components: {
+    Home
 
   },
 
@@ -23,13 +23,15 @@ export default {
   },
 
   data() {
-    return {
-
-    }
+    return {}
   }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+header {
+  height: 100px;
+  width: 100%;
+  padding: 15px;
+}
 </style>
