@@ -1,0 +1,12 @@
+.input{
+  &__search{
+    border: 0;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 0;
+
+    &:focus{
+      box-shadow: none;
+      border-color: $color-secondary;
+    }
+  }
+}
