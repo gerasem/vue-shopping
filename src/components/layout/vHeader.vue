@@ -6,13 +6,11 @@
 
 <script>
 import {useI18n} from 'vue-i18n'
-import Home from "../../views/Home";
 
 export default {
   props: {},
 
   components: {
-    Home
 
   },
 

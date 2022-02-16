@@ -3,7 +3,7 @@
 
   </template>
   <template v-else>
-
+    <v-header></v-header>
     <router-view/>
   </template>
 </template>
@@ -13,9 +13,10 @@ import {defineComponent, watch, ref, computed} from 'vue'
 import {useRouter} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 import {SUPPORT_LOCALES} from './i18n'
+import VHeader from "@/components/layout/vHeader.vue";
 
 export default defineComponent({
-
+  components: {VHeader},
   data() {
     return {
       loading: false,

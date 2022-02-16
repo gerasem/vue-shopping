@@ -2,7 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import {setupI18n} from './i18n'
 import {setupRouter} from './router'
-import "@/css/main.scss"
+import "@/assets/css/main.scss"
 
 
 const i18n = setupI18n({
