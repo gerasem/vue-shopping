@@ -1,6 +1,6 @@
 <template>
   <header class="header__container">
-    <div class="container-xxl">
+    <div class="container-fluid">
       <div class="row">
         <div class="col">
           <router-link to="/" class="header__logo">
@@ -77,7 +77,6 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 15px;
   }
 
   &__logo {
