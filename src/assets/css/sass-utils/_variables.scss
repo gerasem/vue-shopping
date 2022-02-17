@@ -5,5 +5,14 @@ $color-secondary: #dfa44c;
 $text-muted: #aaa;
 $background-gray: #f7f7f7;
 
+$pol-a: 15px;
+$pol-b: calc(100% - 15px);
+
 // overwrite standard bootstrap variables
 $input-btn-padding-x: 0;
+
+// breakpoints
+$screen-xs-max: 576px;
+$screen-sm-max: 768px;
+$screen-md-max: 992px;
+$screen-lg-max: 1200px;
