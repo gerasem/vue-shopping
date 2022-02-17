@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row g-2">
       <div class="col" v-for="item in 5" :key="item">
-        <router-link to="/" class="category__item">
+        <router-link to="/" class="category">
           <div class="category__image-container">
             <img class="img-fluid category__image" :src="previewImage" alt="">
           </div>
@@ -31,6 +31,14 @@ export default {
 
 <style scoped lang="scss">
 .category {
+  text-decoration: none;
+
+  &:hover, &:focus {
+    .category__title {
+      color: $color-secondary;
+    }
+  }
+
   &__image-container {
     overflow: hidden;
 
@@ -44,7 +52,7 @@ export default {
 
   &__image {
     width: 100%;
-    clip-path: polygon($pol-a 0%, $pol-b 0%, 100% $pol-a, 100% $pol-b, $pol-b 100%, $pol-a 100%, 0% $pol-b, 0% $pol-a);
+    clip-path: $clip-path;
     transition: .2s;
 
     &:hover {
@@ -56,16 +64,6 @@ export default {
     text-align: center;
     transition: .2s;
     color: $color-text;
-  }
-
-  &__item {
-    text-decoration: none;
-
-    &:hover, &:focus {
-      .category__title {
-        color: $color-secondary;
-      }
-    }
   }
 }
 </style>

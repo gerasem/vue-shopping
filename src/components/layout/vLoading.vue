@@ -1,6 +1,6 @@
 <template>
   <div class="loader-container">
-    <img class="loader-logo" src="@/assets/mtms-logo--dark.svg"/>
+
     <p>
       <slot>
         Loading
