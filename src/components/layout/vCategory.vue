@@ -1,12 +1,12 @@
 <template>
   <div class="container-fluid">
     <div class="row g-2">
-      <div class="col" v-for="item in 5" :key="item">
-        <router-link to="/" class="category">
+      <div class="col" v-for="category in categories" :key="category">
+        <router-link :to="`/category/${category.slug}`" class="category">
           <div class="category__image-container">
-            <img class="img-fluid category__image" :src="previewImage" alt="">
+            <img class="img-fluid category__image" :src="category.image ?? previewImage" :alt="category.title">
           </div>
-          <h3 class="category__title">Lorem ipsum</h3>
+          <h3 class="category__title">{{category.title}}</h3>
         </router-link>
       </div>
     </div>
@@ -15,6 +15,7 @@
 
 <script>
 import imagePlaceholder from '@/assets/images/320x240.png'
+import {dataAPI} from "@/api/api.js";
 
 export default {
   props: {},
@@ -24,8 +25,13 @@ export default {
   data() {
     return {
       previewImage: imagePlaceholder,
+      categories: [],
     }
   },
+
+  created() {
+    this.categories = dataAPI.getCategories();
+  }
 }
 </script>
 
