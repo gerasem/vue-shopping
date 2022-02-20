@@ -3,18 +3,18 @@
     <div class="item">
       <router-link to="/">
         <div class="item__image-container">
-          <img :src="previewImage" alt="" class="img-fluid item__image">
+          <img :src="item.image ?? previewImage" :alt="item.title" class="img-fluid item__image">
         </div>
       </router-link>
       <div class="item__description">
-        <div class="item__price">25 €</div>
-        <div class="item__old-price">30 €</div>
-        <div class="item__discount">-30%</div>
+        <div class="item__price">{{ item.price }} €</div>
+        <div class="item__old-price" v-if="item.old_price">{{ item.old_price }} €</div>
+        <div class="item__discount" v-if="getSale">{{ getSale }}%</div>
         <div class="icon__link icon__link--cursor">
           <i class="icon__content icon__content--bag bi bi-bag-plus"></i>
         </div>
       </div>
-      <h3 class="item__title">Lorem ipsum</h3>
+      <h3 class="item__title">{{ item.title }}</h3>
     </div>
   </div>
 
@@ -31,6 +31,20 @@ export default {
       previewImage: imagePlaceholder,
     }
   },
+
+  props: {
+    item: {
+      type: Object,
+      required: true
+    }
+  },
+
+  computed: {
+    getSale() {
+      if (!this.item.old_price) return;
+      return ((this.item.price / this.item.old_price - 1) * 100).toFixed(0);
+    }
+  }
 }
 </script>
 

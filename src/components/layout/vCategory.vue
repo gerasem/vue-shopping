@@ -6,7 +6,7 @@
           <div class="category__image-container">
             <img class="img-fluid category__image" :src="category.image ?? previewImage" :alt="category.title">
           </div>
-          <h3 class="category__title">{{category.title}}</h3>
+          <h3 class="category__title">{{ category.title }}</h3>
         </router-link>
       </div>
     </div>

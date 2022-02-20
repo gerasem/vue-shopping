@@ -8,12 +8,16 @@ const instance = axios.create({
 });
 
 import categories from "./mock/categories.json"
+import popular from "./mock/popular.json"
 
 
 export const dataAPI = {
     getCategories() {
         return categories;
     },
+    getPopularItems() {
+        return popular;
+    }
     /*
         getAccreditation(tan) {
             return instance.get(`/accreditation/${tan}`)

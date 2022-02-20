@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "title": "consectetur adipisicing",
+    "image": "https://via.placeholder.com/320x240/005f73",
+    "slug": "consectetur-adipisicing",
+    "price": 29,
+    "old_price": 35
+  },
+  {
+    "id": 2,
+    "title": "debitis in natus",
+    "image": "https://via.placeholder.com/320x240/94d2bd",
+    "slug": "debitis-in-natus",
+    "price": 59,
+    "old_price": 65
+  },
+  {
+    "id": 3,
+    "title": "nemo nostrum",
+    "image": "https://via.placeholder.com/320x240/e9d8a6",
+    "slug": "nemo-nostrum",
+    "price": 15,
+    "old_price": null
+  },
+  {
+    "id": 4,
+    "title": "officiis omnis",
+    "image": "https://via.placeholder.com/320x240/ee9b00",
+    "slug": "officiis-omnis",
+    "price": 57,
+    "old_price": null
+  },
+  {
+    "id": 5,
+    "title": "quisquam suntg",
+    "image": "https://via.placeholder.com/320x240/bb3e03",
+    "slug": "quisquam-suntg",
+    "price": 29,
+    "old_price": 35
+  },
+  {
+    "id": 6,
+    "title": "quisquam suntg",
+    "image": "https://via.placeholder.com/320x240/0a9396",
+    "slug": "quisquam-suntg",
+    "price": 29,
+    "old_price": 35
+  },
+  {
+    "id": 7,
+    "title": "quisquam suntg",
+    "image": "https://via.placeholder.com/320x240/ae2012",
+    "slug": "quisquam-suntg",
+    "price": 29,
+    "old_price": null
+  },
+  {
+    "id": 8,
+    "title": "quisquam suntg",
+    "image": "https://via.placeholder.com/320x240/9b2226",
+    "slug": "quisquam-suntg",
+    "price": 29,
+    "old_price": 35
+  }
+]
