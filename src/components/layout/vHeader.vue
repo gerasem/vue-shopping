@@ -10,13 +10,7 @@
 
         </div>
 
-        <div class="col-auto">
-          <div class="header__languages">
-            <span class="header__current-language">De</span>
-            <span class="header__language-separator">/</span>
-            <span class="header__second-language">En</span>
-          </div>
-        </div>
+        <v-language></v-language>
 
         <div class="col-auto">
           <router-link to="/" class="header__contact">
@@ -52,11 +46,14 @@
 
 <script>
 import {useI18n} from 'vue-i18n'
+import vLanguage from "@/components/layout/vLanguage.vue";
 
 export default {
   props: {},
 
-  components: {},
+  components: {
+    vLanguage
+  },
 
 
   setup() {
@@ -101,24 +98,6 @@ export default {
     font-size: 16px;
     text-transform: none;
     letter-spacing: normal;
-  }
-
-  &__current-language {
-    color: #c8c8c8;
-  }
-
-  &__language-separator {
-    color: #ebebeb;
-    margin: 0 5px;
-  }
-
-  &__second-language {
-    color: $color-icons;
-    cursor: pointer;
-
-    &:hover, &:focus {
-      text-decoration: underline;
-    }
   }
 
   &__contact {

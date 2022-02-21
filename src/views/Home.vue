@@ -7,7 +7,7 @@
     <main class="container-fluid mt-5">
       <h1>{{ header }}</h1>
       <div class="row">
-        <template v-for="item in filteredItems" :key="item.title">
+        <template v-for="item in filteredItems" :key="item.id">
           <v-item :item="item">
 
           </v-item>

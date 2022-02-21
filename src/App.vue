@@ -28,9 +28,26 @@ export default defineComponent({
   },
 
   created() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 500)
+    this.setLoadingFalse();
+  },
+
+  methods: {
+    setLoadingFalse() {
+      setTimeout(() => {
+        this.loading = false;
+      }, 500)
+    },
+
+    initLoading() {
+      this.loading = true;
+      this.setLoadingFalse();
+    }
+  },
+
+  provide() {
+    return {
+      initLoading: this.initLoading
+    }
   },
 
   setup() {
