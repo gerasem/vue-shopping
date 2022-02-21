@@ -71,7 +71,7 @@ export default {
   computed: {
     filteredItems() {
       if (this.selectedCategory) {
-        return this.items.filter(item => item.category === this.selectedCategory)
+        return dataAPI.getItemsByCategory(this.selectedCategory);
       }
       return this.items;
     },

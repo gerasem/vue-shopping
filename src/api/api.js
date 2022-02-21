@@ -8,7 +8,7 @@ const instance = axios.create({
 });
 
 import categories from "./mock/categories.json"
-import popular from "./mock/popular.json"
+import items from "./mock/items.json"
 
 
 export const dataAPI = {
@@ -16,7 +16,13 @@ export const dataAPI = {
         return categories;
     },
     getPopularItems() {
-        return popular;
+        return items.filter(item => item.popular === true);
+    },
+    getItemsByCategory(categoryId) {
+        return items.filter(item => item.category === categoryId)
+    },
+    getItemsById(id) {
+        return items.filter(item => id.includes(item.id));
     }
     /*
         getAccreditation(tan) {
