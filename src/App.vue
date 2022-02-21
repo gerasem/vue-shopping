@@ -1,6 +1,6 @@
 <template>
   <template v-if="loading">
-
+    <v-loading></v-loading>
   </template>
   <template v-else>
     <v-header></v-header>
@@ -13,14 +13,24 @@ import {defineComponent, watch, ref, computed} from 'vue'
 import {useRouter} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 import {SUPPORT_LOCALES} from './i18n'
-import VHeader from "@/components/layout/vHeader.vue";
+import vHeader from "@/components/layout/vHeader.vue";
+import vLoading from "@/components/layout/vLoading.vue";
 
 export default defineComponent({
-  components: {VHeader},
+  components: {
+    vHeader,
+    vLoading
+  },
   data() {
     return {
-      loading: false,
+      loading: true,
     }
+  },
+
+  created() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 500)
   },
 
   setup() {
@@ -46,4 +56,9 @@ export default defineComponent({
 </script>
 
 <style>
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 </style>

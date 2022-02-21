@@ -1,31 +1,37 @@
 <template>
   <v-category @selectCategory="onSelectCategory"></v-category>
-  <main class="container-fluid mt-5">
-    <h1>{{ header }}</h1>
-    <div class="row">
-      <template v-for="item in filteredItems" :key="item.title">
-        <v-item :item="item">
+  <template v-if="loading">
+    <v-loading></v-loading>
+  </template>
+  <template v-else>
+    <main class="container-fluid mt-5">
+      <h1>{{ header }}</h1>
+      <div class="row">
+        <template v-for="item in filteredItems" :key="item.title">
+          <v-item :item="item">
 
-        </v-item>
-      </template>
-      <template v-if="!filteredItems.length">
-        <div class="col">
-          Items not found
-        </div>
-      </template>
-      <template v-if="selectedCategory">
-        <div class="w-100"></div>
-        <div class="col">
-          <a @click="selectedCategory = null" class="btn btn-secondary">show all items</a>
-        </div>
-      </template>
-    </div>
-  </main>
+          </v-item>
+        </template>
+        <template v-if="!filteredItems.length">
+          <div class="col">
+            Items not found
+          </div>
+        </template>
+        <template v-if="selectedCategory">
+          <div class="w-100"></div>
+          <div class="col">
+            <a @click="selectedCategory = null" class="btn btn-secondary">show all items</a>
+          </div>
+        </template>
+      </div>
+    </main>
+  </template>
 </template>
 
 <script>
 import vCategory from "@/components/layout/vCategory.vue";
 import vItem from "@/components/layout/vItem.vue";
+import vLoading from "@/components/layout/vLoading.vue";
 import {dataAPI} from "@/api/api.js";
 
 export default {
@@ -34,6 +40,7 @@ export default {
   components: {
     vCategory,
     vItem,
+    vLoading
   },
 
   data() {
@@ -41,6 +48,7 @@ export default {
       items: [],
       selectedCategory: null,
       header: "Popular items",
+      loading: false,
     }
   },
 
@@ -50,8 +58,13 @@ export default {
 
   methods: {
     onSelectCategory(category) {
+      if(this.loading) return;
+      this.loading = true;
       this.selectedCategory = category.id;
       this.header = category.title;
+      setTimeout(() => {
+        this.loading = false;
+      }, 500)
     }
   },
 
