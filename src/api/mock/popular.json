@@ -5,7 +5,8 @@
     "image": "https://via.placeholder.com/320x240/005f73",
     "slug": "consectetur-adipisicing",
     "price": 29,
-    "old_price": 35
+    "old_price": 35,
+    "category": 1
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "image": "https://via.placeholder.com/320x240/94d2bd",
     "slug": "debitis-in-natus",
     "price": 59,
-    "old_price": 65
+    "old_price": 65,
+    "category": 1
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "image": "https://via.placeholder.com/320x240/e9d8a6",
     "slug": "nemo-nostrum",
     "price": 15,
-    "old_price": null
+    "old_price": null,
+    "category": 2
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "image": "https://via.placeholder.com/320x240/ee9b00",
     "slug": "officiis-omnis",
     "price": 57,
-    "old_price": null
+    "old_price": null,
+    "category": 2
   },
   {
     "id": 5,
@@ -37,7 +41,8 @@
     "image": "https://via.placeholder.com/320x240/bb3e03",
     "slug": "quisquam-suntg",
     "price": 29,
-    "old_price": 35
+    "old_price": 35,
+    "category": 1
   },
   {
     "id": 6,
@@ -45,7 +50,8 @@
     "image": "https://via.placeholder.com/320x240/0a9396",
     "slug": "quisquam-suntg",
     "price": 29,
-    "old_price": 35
+    "old_price": 35,
+    "category": 3
   },
   {
     "id": 7,
@@ -53,7 +59,8 @@
     "image": "https://via.placeholder.com/320x240/ae2012",
     "slug": "quisquam-suntg",
     "price": 29,
-    "old_price": null
+    "old_price": null,
+    "category": 2
   },
   {
     "id": 8,
@@ -61,6 +68,7 @@
     "image": "https://via.placeholder.com/320x240/9b2226",
     "slug": "quisquam-suntg",
     "price": 29,
-    "old_price": 35
+    "old_price": 35,
+    "category": 3
   }
 ]
