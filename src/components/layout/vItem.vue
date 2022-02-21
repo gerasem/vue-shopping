@@ -10,7 +10,7 @@
         <div class="item__price">{{ item.price }} €</div>
         <div class="item__old-price" v-if="item.old_price">{{ item.old_price }} €</div>
         <div class="item__discount" v-if="getSale">{{ getSale }}%</div>
-        <div class="icon__link icon__link--cursor">
+        <div class="icon__link icon__link--cursor" @click="addToCart(item)">
           <i class="icon__content icon__content--bag bi bi-bag-plus"></i>
         </div>
       </div>
@@ -43,6 +43,12 @@ export default {
     getSale() {
       if (!this.item.old_price) return;
       return ((this.item.price / this.item.old_price - 1) * 100).toFixed(0);
+    }
+  },
+
+  methods: {
+    addToCart(item) {
+      console.log('added', item)
     }
   }
 }

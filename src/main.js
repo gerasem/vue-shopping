@@ -2,6 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import {setupI18n} from './i18n'
 import {setupRouter} from './router'
+import store from './store';
 import "@/assets/css/main.scss"
 
 
@@ -18,4 +19,5 @@ const router = setupRouter(i18n);
 createApp(App)
     .use(router)
     .use(i18n)
+    .use(store)
     .mount('#app');
