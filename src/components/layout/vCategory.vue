@@ -3,7 +3,8 @@
     <div class="row g-2">
       <div class="col" v-for="category in categories" :key="category">
         <div @click="handleSelectCategory(category)"
-             class="category">
+             class="category"
+             :class="getCategoryClass(category.id)">
           <div class="category__image-container">
             <img class="img-fluid category__image" :src="category.image ?? previewImage" :alt="category.title">
           </div>
@@ -27,6 +28,7 @@ export default {
     return {
       previewImage: imagePlaceholder,
       categories: [],
+      selectedCategory: null,
     }
   },
 
@@ -36,7 +38,13 @@ export default {
 
   methods: {
     handleSelectCategory(category) {
+      this.selectedCategory = category.id;
       this.$emit('selectCategory', category);
+    },
+
+    getCategoryClass(categoryId) {
+      if(categoryId === this.selectedCategory) return "active";
+      return "category--opacity"
     }
   },
 
@@ -50,14 +58,16 @@ export default {
 .category {
   text-decoration: none;
   cursor: pointer;
+  transition: .2s;
 
-  &:hover, &:focus {
+  &:hover, &:focus, &.active {
+    opacity: 1;
     .category__title {
       color: $color-secondary;
     }
 
     .category__image {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
   }
 
@@ -82,6 +92,10 @@ export default {
     text-align: center;
     transition: .2s;
     color: $color-text;
+  }
+
+  &--opacity{
+    opacity: .5;
   }
 }
 </style>
