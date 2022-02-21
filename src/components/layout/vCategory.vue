@@ -36,7 +36,7 @@ export default {
 
   methods: {
     handleSelectCategory(category) {
-      this.$emit('selectCategory', category.id);
+      this.$emit('selectCategory', category);
     }
   },
 

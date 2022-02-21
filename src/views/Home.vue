@@ -1,7 +1,7 @@
 <template>
   <v-category @selectCategory="onSelectCategory"></v-category>
   <main class="container-fluid mt-5">
-    <h1>{{getHeader}}</h1>
+    <h1>{{ header }}</h1>
     <div class="row">
       <template v-for="item in filteredItems" :key="item.title">
         <v-item :item="item">
@@ -11,6 +11,12 @@
       <template v-if="!filteredItems.length">
         <div class="col">
           Items not found
+        </div>
+      </template>
+      <template v-if="selectedCategory">
+        <div class="w-100"></div>
+        <div class="col">
+          <a @click="selectedCategory = null" class="btn btn-secondary">show all items</a>
         </div>
       </template>
     </div>
@@ -33,7 +39,8 @@ export default {
   data() {
     return {
       items: [],
-      selectedCategory: null
+      selectedCategory: null,
+      header: "Popular items",
     }
   },
 
@@ -43,7 +50,8 @@ export default {
 
   methods: {
     onSelectCategory(category) {
-      this.selectedCategory = category;
+      this.selectedCategory = category.id;
+      this.header = category.title;
     }
   },
 
@@ -54,14 +62,7 @@ export default {
       }
       return this.items;
     },
-
-    getHeader() {
-      if (this.selectedCategory) {
-        return this.selectedCategory
-      }
-      return "Popular items";
-    }
-  }
+  },
 }
 </script>
 
