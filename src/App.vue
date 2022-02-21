@@ -31,11 +31,13 @@ export default defineComponent({
     this.setLoadingFalse();
   },
 
+  timeout: 500,
+
   methods: {
     setLoadingFalse() {
       setTimeout(() => {
         this.loading = false;
-      }, 500)
+      }, this.$options.timeout)
     },
 
     initLoading() {
@@ -46,7 +48,8 @@ export default defineComponent({
 
   provide() {
     return {
-      initLoading: this.initLoading
+      initLoading: this.initLoading,
+      timeout: this.$options.timeout,
     }
   },
 

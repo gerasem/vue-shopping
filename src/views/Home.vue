@@ -64,7 +64,7 @@ export default {
       this.header = category.title;
       setTimeout(() => {
         this.loading = false;
-      }, 500)
+      }, this.timeout)
     }
   },
 
@@ -76,6 +76,10 @@ export default {
       return this.items;
     },
   },
+
+  inject: [
+      'timeout'
+  ]
 }
 </script>
 
