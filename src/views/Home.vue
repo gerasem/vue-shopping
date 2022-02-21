@@ -20,7 +20,7 @@
         <template v-if="selectedCategory">
           <div class="w-100"></div>
           <div class="col">
-            <a @click="selectedCategory = null" class="btn btn-secondary">show all items</a>
+            <a @click="showPopularItems()" class="btn btn-secondary">show all items</a>
           </div>
         </template>
       </div>
@@ -58,13 +58,17 @@ export default {
 
   methods: {
     onSelectCategory(category) {
-      if(this.loading) return;
+      if (this.loading) return;
       this.loading = true;
       this.selectedCategory = category.id;
       this.header = category.title;
       setTimeout(() => {
         this.loading = false;
       }, this.timeout)
+    },
+    showPopularItems() {
+      this.selectedCategory = null;
+      this.header = "Popular items";
     }
   },
 
@@ -78,7 +82,7 @@ export default {
   },
 
   inject: [
-      'timeout'
+    'timeout'
   ]
 }
 </script>

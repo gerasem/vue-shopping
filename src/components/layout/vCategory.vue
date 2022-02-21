@@ -43,7 +43,8 @@ export default {
     },
 
     getCategoryClass(categoryId) {
-      if(categoryId === this.selectedCategory) return "active";
+      if (!this.selectedCategory) return;
+      if (categoryId === this.selectedCategory) return "active";
       return "category--opacity"
     }
   },
@@ -62,6 +63,7 @@ export default {
 
   &:hover, &:focus, &.active {
     opacity: 1;
+
     .category__title {
       color: $color-secondary;
     }
@@ -94,7 +96,7 @@ export default {
     color: $color-text;
   }
 
-  &--opacity{
+  &--opacity {
     opacity: .5;
   }
 }
