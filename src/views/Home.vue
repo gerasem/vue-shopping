@@ -1,31 +1,35 @@
 <template>
   <v-category @selectCategory="onSelectCategory"></v-category>
+
   <template v-if="loading">
     <v-loading></v-loading>
   </template>
-  <template v-else>
-    <main class="container-fluid mt-5">
-      <h1>{{ header }}</h1>
-      <div class="row">
-        <template v-for="item in filteredItems" :key="item.id">
-          <v-item :item="item">
+  <Transition>
+    <template v-if="!loading">
+      <main class="container-fluid mt-5">
+        <h1>{{ header }}</h1>
 
-          </v-item>
-        </template>
-        <template v-if="!filteredItems.length">
-          <div class="col">
-            Items not found
-          </div>
-        </template>
-        <template v-if="selectedCategory">
-          <div class="w-100"></div>
-          <div class="col">
-            <a @click="showPopularItems()" class="btn btn-secondary">show all items</a>
-          </div>
-        </template>
-      </div>
-    </main>
-  </template>
+        <div class="row">
+          <template v-for="item in filteredItems" :key="item.id">
+            <v-item :item="item">
+
+            </v-item>
+          </template>
+          <template v-if="!filteredItems.length">
+            <div class="col">
+              Items not found
+            </div>
+          </template>
+          <template v-if="selectedCategory">
+            <div class="w-100"></div>
+            <div class="col">
+              <a @click="showPopularItems()" class="btn btn-secondary">show all items</a>
+            </div>
+          </template>
+        </div>
+      </main>
+    </template>
+  </Transition>
 </template>
 
 <script>
@@ -88,5 +92,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.v-enter-active {
+  transition: all .3s ease;
+}
+
+.v-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 
 </style>
