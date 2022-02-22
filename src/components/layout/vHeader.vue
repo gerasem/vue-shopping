@@ -33,9 +33,9 @@
             <router-link to="/" class="icon__link">
               <i class="icon__content bi bi-heart"></i>
             </router-link>
-            <router-link to="/" class="icon__link icon__link--active">
+            <router-link to="/" class="icon__link" :class="{'icon__link--active': isCartNotEmpty}">
               <i class="icon__content icon__content--bag bi bi-bag"></i>
-              <span class="icon__count">3</span>
+              <span v-if="isCartNotEmpty" class="icon__count">{{ itemsInCartTotalCount }}</span>
             </router-link>
           </div>
         </div>
@@ -63,6 +63,15 @@ export default {
 
   data() {
     return {}
+  },
+
+  computed: {
+    itemsInCartTotalCount() {
+      return this.$store.getters.getTotal.quantity;
+    },
+    isCartNotEmpty() {
+      return this.itemsInCartTotalCount !== 0;
+    }
   }
 }
 </script>
@@ -85,6 +94,7 @@ export default {
     user-select: none;
     display: flex;
     align-items: center;
+
     &:hover, &:focus {
       color: $color-text;
       text-decoration: none;
@@ -114,6 +124,7 @@ export default {
   &__search {
     position: relative;
     margin-top: -3px;
+
     .icon__input {
       position: absolute;
       right: 0;
@@ -122,7 +133,7 @@ export default {
     }
   }
 
-  &__icons{
+  &__icons {
     display: flex;
     align-items: start;
   }

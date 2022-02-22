@@ -29,6 +29,7 @@ export default defineComponent({
 
   created() {
     this.setLoadingFalse();
+    this.$store.dispatch("initShoppingCart");
   },
 
   timeout: 500,

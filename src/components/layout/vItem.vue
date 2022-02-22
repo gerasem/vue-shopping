@@ -22,6 +22,7 @@
 
 <script>
 import imagePlaceholder from '@/assets/images/320x240.png'
+import { mapActions } from 'vuex'
 
 export default {
   name: "vItem",
@@ -47,10 +48,10 @@ export default {
   },
 
   methods: {
-    addToCart(item) {
-      console.log('added', item)
-    }
-  }
+    ...mapActions('cart', [
+      'addProductToCart'
+    ]),
+  },
 }
 </script>
 
