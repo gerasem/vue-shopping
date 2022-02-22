@@ -71,8 +71,13 @@ export default {
       }, this.timeout)
     },
     showPopularItems() {
+      if (this.loading) return;
+      this.loading = true;
       this.selectedCategory = null;
       this.header = "Popular items";
+      setTimeout(() => {
+        this.loading = false;
+      }, this.timeout)
     }
   },
 
