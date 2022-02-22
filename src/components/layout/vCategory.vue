@@ -73,9 +73,15 @@ export default {
     }
   }
 
+  &.active {
+    .category__image-container {
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+    }
+  }
+
   &__image-container {
     overflow: hidden;
-
+    transition: .2s;
     @media (max-width: $screen-sm-max) {
       min-width: 200px;
     }
