@@ -63,8 +63,8 @@ export default {
   methods: {
     onSelectCategory(category) {
       if (this.loading) return;
-      this.selectedCategory = category.id;
       if(category.id === this.selectedCategory) return;
+      this.selectedCategory = category.id;
       this.loading = true;
       this.header = category.title;
       setTimeout(() => {
