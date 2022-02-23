@@ -1,12 +1,11 @@
 <template>
   <v-category @selectCategory="onSelectCategory"></v-category>
-
   <template v-if="loading">
     <v-loading></v-loading>
   </template>
   <Transition>
     <template v-if="!loading">
-      <main class="container-fluid mt-5">
+      <main class="container-fluid">
         <h1>{{ header }}</h1>
 
         <div class="row">
@@ -50,7 +49,6 @@ export default {
   data() {
     return {
       items: [],
-      selectedCategory: null,
       header: "Popular items",
       loading: false,
     }
@@ -63,7 +61,8 @@ export default {
   methods: {
     onSelectCategory(category) {
       if (this.loading) return;
-      if(category.id === this.selectedCategory) return;
+      // console.log(category.id, this.selectedCategory);
+      if (category.id === this.selectedCategory) return;
       this.selectedCategory = category.id;
       this.loading = true;
       this.header = category.title;
@@ -84,17 +83,42 @@ export default {
   },
 
   computed: {
+    search() {
+      return this.$store.state.items.search
+    },
+
     filteredItems() {
+      if (this.search) {
+        return this.items.filter(search => search.title.toLowerCase().includes(this.search.toLowerCase()))
+      }
       if (this.selectedCategory) {
         return dataAPI.getItemsByCategory(this.selectedCategory);
       }
       return this.items;
     },
+
+    selectedCategory: {
+      get() {
+        return this.$store.state.items.selectedCategory;
+      },
+      set(value) {
+        this.$store.commit('setSelectedCategory', value);
+      }
+    }
   },
 
   inject: [
     'timeout'
-  ]
+  ],
+
+  watch: {
+    search() {
+      this.selectedCategory = null;
+      this.search ? this.header = "Search..." : this.header = "Popular items";
+    }
+  }
+
+
 }
 </script>
 
@@ -107,6 +131,4 @@ export default {
   opacity: 0;
   transform: translateY(30px);
 }
-
-
 </style>

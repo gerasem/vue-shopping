@@ -1,18 +1,22 @@
 <template>
-  <div class="container-fluid">
-    <div class="row g-2">
-      <div class="col" v-for="category in categories" :key="category">
-        <div @click="handleSelectCategory(category)"
-             class="category"
-             :class="getCategoryClass(category.id)">
-          <div class="category__image-container">
-            <img class="img-fluid category__image" :src="category.image ?? previewImage" :alt="category.title">
+  <Transition name="category">
+    <template v-if="!search">
+      <div class="container-fluid mb-5">
+        <div class="row g-2">
+          <div class="col" v-for="category in categories" :key="category">
+            <div @click="handleSelectCategory(category)"
+                 class="category"
+                 :class="getCategoryClass(category.id)">
+              <div class="category__image-container">
+                <img class="img-fluid category__image" :src="category.image ?? previewImage" :alt="category.title">
+              </div>
+              <h3 class="category__title">{{ category.title }}</h3>
+            </div>
           </div>
-          <h3 class="category__title">{{ category.title }}</h3>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </Transition>
 </template>
 
 <script>
@@ -28,7 +32,6 @@ export default {
     return {
       previewImage: imagePlaceholder,
       categories: [],
-      selectedCategory: null,
     }
   },
 
@@ -38,14 +41,29 @@ export default {
 
   methods: {
     handleSelectCategory(category) {
-      this.selectedCategory = category.id;
       this.$emit('selectCategory', category);
+      this.selectedCategory = category.id;
     },
 
     getCategoryClass(categoryId) {
       if (!this.selectedCategory) return;
       if (categoryId === this.selectedCategory) return "active";
       return "category--opacity"
+    }
+  },
+
+  computed: {
+    selectedCategory: {
+      get() {
+        return this.$store.state.items.selectedCategory;
+      },
+      set(value) {
+        this.$store.commit('setSelectedCategory', value);
+      }
+    },
+
+    search() {
+      return this.$store.state.items.search;
     }
   },
 
@@ -105,5 +123,16 @@ export default {
   &--opacity {
     opacity: .5;
   }
+}
+
+.category-leave-to,
+.category-enter-active {
+  transition: all .3s ease;
+}
+
+.category-leave-to,
+.category-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

@@ -20,8 +20,12 @@
 
         <div class="col-auto">
           <div class="header__search">
-            <input type="text" class="form-control input__search" placeholder="Search ...">
-            <i class="icon__input bi bi-search"></i>
+            <input type="text"
+                   v-model="search"
+                   class="form-control input__search"
+                   :class="{'active': search}"
+                   placeholder="Search ...">
+            <i :class="`icon__input bi ${search ? 'bi-x-lg icon--cursor' : 'bi-search'}`" @click="handleClickOnSearchIcon()"></i>
           </div>
         </div>
 
@@ -62,15 +66,35 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      // search: "",
+    }
   },
 
   computed: {
     itemsInCartTotalCount() {
       return this.$store.getters.getTotal.quantity;
     },
+
     isCartNotEmpty() {
       return this.itemsInCartTotalCount !== 0;
+    },
+
+    search: {
+      get() {
+        return this.$store.state.items.search;
+      },
+      set(value) {
+        this.$store.commit('setSearch', value)
+      }
+    },
+  },
+
+  methods: {
+    handleClickOnSearchIcon() {
+      if(this.search) {
+        this.search = "";
+      }
     }
   }
 }
