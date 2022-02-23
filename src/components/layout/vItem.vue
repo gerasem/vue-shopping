@@ -48,9 +48,11 @@ export default {
   },
 
   methods: {
-    ...mapActions('cart', [
-      'addProductToCart'
-    ]),
+    addToCart(item) {
+      this.$store.dispatch('addProductToCart', {
+        item: item
+      })
+    }
   },
 }
 </script>

@@ -55,8 +55,9 @@ export const cart = {
             }
         },
 
-        pushItemToCart(state) {
-
+        pushItemToCart(state, item) {
+            item.item.quantity = 1;
+            state.itemsInCart = [...state.itemsInCart, item.item]
         }
     },
     actions: {
@@ -64,8 +65,9 @@ export const cart = {
             commit('getItemsFromLS');
         },
 
-        addProductToCart() {
-            console.log('add items to cart vuex')
+        addProductToCart({ commit, state }, item) {
+            console.log('added items to cart vuex', item.title);
+            commit('pushItemToCart', item)
         }
     },
 }
