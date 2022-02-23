@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       items: [],
-      header: "Popular items",
+      header: this.$options.popularItems,
       loading: false,
     }
   },
@@ -75,7 +75,7 @@ export default {
       if (this.loading) return;
       this.loading = true;
       this.selectedCategory = null;
-      this.header = "Popular items";
+      this.header = this.$options.popularItems;
       setTimeout(() => {
         this.loading = false;
       }, this.timeout)
@@ -111,10 +111,18 @@ export default {
     'timeout'
   ],
 
+  popularItems: "Popular items",
+
   watch: {
-    search() {
+    search(newValue, oldValue) {
+      if (oldValue.length >= 1) return;
+      if (this.loading) return;
+      this.loading = true;
       this.selectedCategory = null;
-      this.search ? this.header = "Search..." : this.header = "Popular items";
+      this.search ? this.header = "Search..." : this.header = this.$options.popularItems;
+      setTimeout(() => {
+        this.loading = false;
+      }, this.timeout)
     }
   }
 
