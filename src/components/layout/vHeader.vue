@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <router-link to="/" class="header__logo">
+          <router-link :to="{name: 'home', params: {locale: $i18n.locale}}" class="header__logo">
             Logo
             <span class="header__slogan">Lorem ipsum</span>
           </router-link>
@@ -25,7 +25,8 @@
                    class="form-control input__search"
                    :class="{'active': search}"
                    placeholder="Search ...">
-            <i :class="`icon__input bi ${search ? 'bi-x-lg icon--cursor' : 'bi-search'}`" @click="handleClickOnSearchIcon()"></i>
+            <i :class="`icon__input bi ${search ? 'bi-x-lg icon--cursor' : 'bi-search'}`"
+               @click="handleClickOnSearchIcon()"></i>
           </div>
         </div>
 
@@ -37,10 +38,11 @@
             <router-link to="/" class="icon__link">
               <i class="icon__content bi bi-heart"></i>
             </router-link>
-            <router-link to="/" class="icon__link" :class="{'icon__link--active': isCartNotEmpty}">
+            <div class="icon__link icon--cursor" @click="goToCartPage()"
+                 :class="{'icon__link--active': isCartNotEmpty}">
               <i class="icon__content icon__content--bag bi bi-bag"></i>
               <span v-if="isCartNotEmpty" class="icon__count">{{ itemsInCartTotalCount }}</span>
-            </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -66,9 +68,7 @@ export default {
   },
 
   data() {
-    return {
-      // search: "",
-    }
+    return {}
   },
 
   computed: {
@@ -90,11 +90,16 @@ export default {
     },
   },
 
+
   methods: {
     handleClickOnSearchIcon() {
-      if(this.search) {
+      if (this.search) {
         this.search = "";
       }
+    },
+
+    goToCartPage() {
+      this.$router.push({name: 'cart', params: {locale: this.$i18n.locale}})
     }
   }
 }

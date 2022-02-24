@@ -50,12 +50,17 @@ export default {
     return {
       items: [],
       header: this.$options.popularItems,
-      loading: false,
+      loading: true,
     }
   },
 
   created() {
-    this.items = dataAPI.getPopularItems();
+    if (!this.items.length) {
+      this.items = dataAPI.getPopularItems();
+      setTimeout(() => {
+        this.loading = false;
+      }, import.meta.env.VITE_TIMEOUT || 500);
+    }
   },
 
   methods: {
@@ -68,7 +73,7 @@ export default {
       this.header = category.title;
       setTimeout(() => {
         this.loading = false;
-      }, this.timeout)
+      }, import.meta.env.VITE_TIMEOUT || 500);
     },
 
     showPopularItems() {
@@ -78,18 +83,18 @@ export default {
       this.header = this.$options.popularItems;
       setTimeout(() => {
         this.loading = false;
-      }, this.timeout)
+      }, import.meta.env.VITE_TIMEOUT || 500);
     }
   },
 
   computed: {
     search() {
-      return this.$store.state.items.search
+      return this.$store.state.items.search;
     },
 
     filteredItems() {
       if (this.search) {
-        return this.items.filter(search => search.title.toLowerCase().includes(this.search.toLowerCase()))
+        return this.items.filter(search => search.title.toLowerCase().includes(this.search.toLowerCase()));
       }
       if (this.selectedCategory) {
         return dataAPI.getItemsByCategory(this.selectedCategory);
@@ -104,12 +109,8 @@ export default {
       set(value) {
         this.$store.commit('setSelectedCategory', value);
       }
-    }
+    },
   },
-
-  inject: [
-    'timeout'
-  ],
 
   popularItems: "Popular items",
 
@@ -122,11 +123,9 @@ export default {
       this.search ? this.header = "Search..." : this.header = this.$options.popularItems;
       setTimeout(() => {
         this.loading = false;
-      }, this.timeout)
+      }, import.meta.env.VITE_TIMEOUT || 500);
     }
   }
-
-
 }
 </script>
 

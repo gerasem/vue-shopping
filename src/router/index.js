@@ -24,9 +24,9 @@ export function setupRouter(i18n) {
                     component: Home
                 },
                 {
-                    path: 'user',
-                    name: 'user',
-                    component: load('User')
+                    path: 'cart',
+                    name: 'cart',
+                    component: load('Cart')
                 },
                 {
                     path: ':pathMatch(.*)*',

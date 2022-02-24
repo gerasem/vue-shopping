@@ -11,16 +11,14 @@
 <script>
 export default {
   name: "vLanguage",
-  inject: [
-    'initLoading'
-  ],
 
   methods: {
     setLocale(language) {
       if (this.$i18n.locale === language) return;
-      this.initLoading();
+      this.$store.dispatch("setLoading", true);
       this.$i18n.locale = language;
       this.$router.push({params: {locale: language}});
+      this.$store.dispatch("setLoading", false);
     },
 
     getLanguageClass(locale) {

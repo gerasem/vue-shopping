@@ -22,36 +22,19 @@ export default defineComponent({
     vLoading
   },
   data() {
-    return {
-      loading: true,
+    return {}
+  },
+
+  computed: {
+    loading() {
+      return this.$store.state.loading;
     }
   },
 
   created() {
-    this.setLoadingFalse();
+    console.log('app created');
     this.$store.dispatch("initShoppingCart");
-  },
-
-  timeout: 500,
-
-  methods: {
-    setLoadingFalse() {
-      setTimeout(() => {
-        this.loading = false;
-      }, this.$options.timeout)
-    },
-
-    initLoading() {
-      this.loading = true;
-      this.setLoadingFalse();
-    }
-  },
-
-  provide() {
-    return {
-      initLoading: this.initLoading,
-      timeout: this.$options.timeout,
-    }
+    this.$store.dispatch("setLoading", false);
   },
 
   setup() {
