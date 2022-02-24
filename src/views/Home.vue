@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       items: [],
-      header: this.$options.popularItems,
+      header: "",
       loading: true,
     }
   },
@@ -61,6 +61,7 @@ export default {
         this.loading = false;
       }, import.meta.env.VITE_TIMEOUT || 500);
     }
+    this.changeHeader();
   },
 
   methods: {
@@ -84,6 +85,10 @@ export default {
       setTimeout(() => {
         this.loading = false;
       }, import.meta.env.VITE_TIMEOUT || 500);
+    },
+
+    changeHeader() {
+      this.header = this.search.length > 0 ? "Search..." : this.$options.popularItems;
     }
   },
 
@@ -116,14 +121,14 @@ export default {
 
   watch: {
     search(newValue, oldValue) {
-      if (oldValue.length >= 1) return;
-      if (this.loading) return;
-      this.loading = true;
-      this.selectedCategory = null;
-      this.search ? this.header = "Search..." : this.header = this.$options.popularItems;
-      setTimeout(() => {
-        this.loading = false;
-      }, import.meta.env.VITE_TIMEOUT || 500);
+      this.changeHeader();
+      if (this.search.length > 0 && this.search.length <= 1 && oldValue <= 2) {
+        this.loading = true;
+        this.selectedCategory = null;
+        setTimeout(() => {
+          this.loading = false;
+        }, import.meta.env.VITE_TIMEOUT || 500);
+      }
     }
   }
 }

@@ -3,10 +3,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <router-link :to="{name: 'home', params: {locale: $i18n.locale}}" class="header__logo">
+          <div @click="goToMainPage()" class="header__logo">
             Logo
             <span class="header__slogan">Lorem ipsum</span>
-          </router-link>
+          </div>
 
         </div>
 
@@ -99,7 +99,13 @@ export default {
     },
 
     goToCartPage() {
+      this.search = "";
       this.$router.push({name: 'cart', params: {locale: this.$i18n.locale}})
+    },
+
+    goToMainPage() {
+      this.search = "";
+      this.$router.push({name: 'home', params: {locale: this.$i18n.locale}})
     }
   }
 }
@@ -123,6 +129,7 @@ export default {
     user-select: none;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     &:hover, &:focus {
       color: $color-text;

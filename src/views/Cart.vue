@@ -34,6 +34,20 @@ export default {
       this.loading = false;
     }, import.meta.env.VITE_TIMEOUT || 500);
   },
+
+  computed: {
+    search() {
+      return this.$store.state.items.search;
+    },
+  },
+
+  watch: {
+    search() {
+      if(this.search.length > 0) {
+        this.$router.push({name: 'home', params: {locale: this.$i18n.locale}})
+      }
+    }
+  }
 }
 </script>
 
