@@ -55,7 +55,6 @@ export default defineComponent({
 
     return {t, locale, currentLocale, supportLocales: SUPPORT_LOCALES};
   },
-
 })
 </script>
 

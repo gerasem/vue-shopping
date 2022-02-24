@@ -3,10 +3,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <div @click="goToMainPage()" class="header__logo">
+          <router-link :to="{name: 'home', params: {locale: this.$i18n.locale}}" class="header__logo">
             Logo
             <span class="header__slogan">Lorem ipsum</span>
-          </div>
+          </router-link>
 
         </div>
 
@@ -38,11 +38,12 @@
             <router-link to="/" class="icon__link">
               <i class="icon__content bi bi-heart"></i>
             </router-link>
-            <div class="icon__link icon--cursor" @click="goToCartPage()"
-                 :class="{'icon__link--active': isCartNotEmpty}">
+            <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}"
+                         class="icon__link icon--cursor"
+                         :class="{'icon__link--active': isCartNotEmpty}">
               <i class="icon__content icon__content--bag bi bi-bag"></i>
               <span v-if="isCartNotEmpty" class="icon__count">{{ itemsInCartTotalCount }}</span>
-            </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -97,15 +98,13 @@ export default {
         this.search = "";
       }
     },
+  },
 
-    goToCartPage() {
-      this.search = "";
-      this.$router.push({name: 'cart', params: {locale: this.$i18n.locale}})
-    },
-
-    goToMainPage() {
-      this.search = "";
-      this.$router.push({name: 'home', params: {locale: this.$i18n.locale}})
+  watch: {
+    $route(to, from) {
+      if (to.name !== 'home') {
+        this.search = "";
+      }
     }
   }
 }
