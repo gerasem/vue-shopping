@@ -35,6 +35,7 @@ export default defineComponent({
   created() {
     this.$store.dispatch("getAllItems");
     this.$store.dispatch("initShoppingCart");
+    this.$store.dispatch("getCategories");
     this.$store.dispatch("setLoading", false);
   },
 

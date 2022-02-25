@@ -4,7 +4,6 @@ export const items = {
     state() {
         return {
             search: "",
-            selectedCategory: null,
             allItems: []
         }
     },
@@ -20,10 +19,6 @@ export const items = {
     mutations: {
         setSearch(state, search) {
             state.search = search;
-        },
-
-        setSelectedCategory(state, category) {
-            state.selectedCategory = category;
         },
 
         setAllItems(state, items) {

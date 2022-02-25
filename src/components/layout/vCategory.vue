@@ -31,12 +31,7 @@ export default {
   data() {
     return {
       previewImage: imagePlaceholder,
-      categories: [],
     }
-  },
-
-  created() {
-    this.categories = dataAPI.getCategories();
   },
 
   methods: {
@@ -53,9 +48,13 @@ export default {
   },
 
   computed: {
+    categories() {
+      return this.$store.state.categories.categories;
+    },
+
     selectedCategory: {
       get() {
-        return this.$store.state.items.selectedCategory;
+        return this.$store.state.categories.selectedCategory;
       },
       set(value) {
         this.$store.commit('setSelectedCategory', value);

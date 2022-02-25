@@ -1,5 +1,6 @@
 import {createStore} from "vuex";
 import {cart} from "@/store/modules/cart.js";
+import {categories} from "@/store/modules/categories.js";
 import {items} from "@/store/modules/items.js";
 
 export default createStore({
@@ -52,6 +53,7 @@ export default createStore({
     },
     modules: {
         cart,
-        items
+        categories,
+        items,
     },
 })

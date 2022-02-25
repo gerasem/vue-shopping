@@ -58,7 +58,13 @@ export default {
     setTimeout(() => {
       this.loading = false;
     }, import.meta.env.VITE_TIMEOUT || 500);
-    this.changeHeader();
+    if (this.$route.name === "category") {
+      const categorySlugFromUrl = this.$route.params.category;
+      this.selectedCategory = this.$store.getters.getCategoryBySlug(categorySlugFromUrl)[0].id;
+      this.changeHeader(this.$store.getters.getCategoryBySlug(categorySlugFromUrl)[0].title);
+    } else {
+      this.changeHeader();
+    }
   },
 
   methods: {
@@ -68,7 +74,7 @@ export default {
       if (category.id === this.selectedCategory) return;
       this.selectedCategory = category.id;
       this.loading = true;
-      this.header = category.title;
+      this.changeHeader(category.title);
       this.$router.push({name: 'category', params: {locale: this.$i18n.locale, category: category.slug}});
       setTimeout(() => {
         this.loading = false;
@@ -79,14 +85,18 @@ export default {
       if (this.loading) return;
       this.selectedCategory = null;
       this.loading = true;
-      this.header = this.$options.popularItemsTitle;
+      this.changeHeader();
       setTimeout(() => {
         this.loading = false;
       }, import.meta.env.VITE_TIMEOUT || 500);
     },
 
-    changeHeader() {
-      this.header = this.search.length > 0 ? "Search..." : this.$options.popularItemsTitle;
+    changeHeader(title = this.$options.popularItemsTitle) {
+      if(this.search.length){
+        this.header = "Search...";
+      } else {
+        this.header = title;
+      }
     }
   },
 
@@ -112,7 +122,7 @@ export default {
 
     selectedCategory: {
       get() {
-        return this.$store.state.items.selectedCategory;
+        return this.$store.state.categories.selectedCategory;
       },
       set(value) {
         this.$store.commit('setSelectedCategory', value);
@@ -138,7 +148,6 @@ export default {
       // console.log('selected category changed', newValue)
       if (!newValue) {
         this.loading = true;
-        this.changeHeader();
         setTimeout(() => {
           this.loading = false;
         }, import.meta.env.VITE_TIMEOUT || 500);
