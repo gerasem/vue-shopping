@@ -69,7 +69,7 @@ export default {
 
   emits: {
     selectCategory: null,
-  }
+  },
 }
 </script>
 

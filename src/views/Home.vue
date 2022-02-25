@@ -36,6 +36,8 @@ import vCategory from "@/components/layout/vCategory.vue";
 import vItem from "@/components/layout/vItem.vue";
 import vLoading from "@/components/layout/vLoading.vue";
 
+import {mapGetters, mapState} from 'vuex'
+
 export default {
   name: "Home",
 
@@ -88,17 +90,14 @@ export default {
   },
 
   computed: {
-    search() {
-      return this.$store.state.items.search;
-    },
+    ...mapState({
+      search: state => state.items.search,
+      items: state => state.items.allItems,
+    }),
 
-    items() {
-      return this.$store.state.items.allItems;
-    },
-
-    popularItems() {
-      return this.$store.getters.popularItems;
-    },
+    ...mapGetters([
+      'popularItems',
+    ]),
 
     filteredItems() {
       if (this.search) {
@@ -128,6 +127,17 @@ export default {
       if (this.search.length > 0 && this.search.length <= 1 && oldValue <= 2) {
         this.loading = true;
         this.selectedCategory = null;
+        setTimeout(() => {
+          this.loading = false;
+        }, import.meta.env.VITE_TIMEOUT || 500);
+      }
+    },
+
+    selectedCategory(newValue) {
+      // console.log('selected category changed', newValue)
+      if (!newValue) {
+        this.loading = true;
+        this.changeHeader();
         setTimeout(() => {
           this.loading = false;
         }, import.meta.env.VITE_TIMEOUT || 500);

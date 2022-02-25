@@ -3,7 +3,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col">
-          <router-link :to="{name: 'home', params: {locale: this.$i18n.locale}}" class="header__logo">
+          <router-link
+              :to="{name: 'home', params: {locale: this.$i18n.locale}}"
+              @click="handleOnClickOnLogo()"
+              class="header__logo">
             Logo
             <span class="header__slogan">Lorem ipsum</span>
           </router-link>
@@ -98,14 +101,19 @@ export default {
         this.search = "";
       }
     },
+
+    handleOnClickOnLogo() {
+      this.search = "";
+      this.$store.commit('setSelectedCategory', null);
+    }
   },
 
   watch: {
-    $route(to, from) {
+    $route(to) {
       if (to.name !== 'home') {
         this.search = "";
       }
-    }
+    },
   }
 }
 </script>
