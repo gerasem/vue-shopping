@@ -6,9 +6,32 @@
     <template v-if="!loading">
       <main class="container-fluid">
         <h1>Cart</h1>
-
-        <div class="row">
-        </div>
+        <template v-if="itemsInCart.length">
+          <div class="row">
+            <div class="col-sm-12 col-md-8">
+              <div class="cart__items" v-for="item in itemsInCart" :key="item.title">
+                <div class="cart__item">
+                  <a :href="item.slug" class="cart__image">
+                    <img :src="item.image" :alt="item.title">
+                  </a>
+                  <div class="cart__main">
+                    <div class="cart__prices">
+                      {{ item.price }}
+                    </div>
+                    <h4 class="cart__title">{{ item.title }}</h4>
+                  </div>
+                  <div class="cart__actions">
+                    <input type="text" :value="item.quantity">
+                  </div>
+                  <a href="#">X</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <p>Shopping cart is empty</p>
+        </template>
       </main>
     </template>
   </Transition>
@@ -39,11 +62,20 @@ export default {
     search() {
       return this.$store.state.items.search;
     },
+
+    itemsInCart: {
+      get() {
+        return this.$store.state.cart.itemsInCart;
+      },
+      set(value) {
+        this.$store.commit('addProductToCart', value)
+      }
+    },
   },
 
   watch: {
     search() {
-      if(this.search.length > 0) {
+      if (this.search.length > 0) {
         this.$router.push({name: 'home', params: {locale: this.$i18n.locale}})
       }
     }

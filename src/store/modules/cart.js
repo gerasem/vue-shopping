@@ -1,5 +1,3 @@
-import {dataAPI} from "@/api/api.js";
-
 export const cart = {
     state() {
         return {
@@ -66,6 +64,7 @@ export const cart = {
         },
 
         addProductToCart({ commit, state }, item) {
+
             console.log('added items to cart vuex', item.title);
             commit('pushItemToCart', item)
         }

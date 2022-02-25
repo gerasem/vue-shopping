@@ -35,7 +35,6 @@
 import vCategory from "@/components/layout/vCategory.vue";
 import vItem from "@/components/layout/vItem.vue";
 import vLoading from "@/components/layout/vLoading.vue";
-import {dataAPI} from "@/api/api.js";
 
 export default {
   name: "Home",
@@ -48,19 +47,15 @@ export default {
 
   data() {
     return {
-      items: [],
       header: "",
       loading: true,
     }
   },
 
   created() {
-    if (!this.items.length) {
-      this.items = dataAPI.getPopularItems();
-      setTimeout(() => {
-        this.loading = false;
-      }, import.meta.env.VITE_TIMEOUT || 500);
-    }
+    setTimeout(() => {
+      this.loading = false;
+    }, import.meta.env.VITE_TIMEOUT || 500);
     this.changeHeader();
   },
 
@@ -79,16 +74,16 @@ export default {
 
     showPopularItems() {
       if (this.loading) return;
-      this.loading = true;
       this.selectedCategory = null;
-      this.header = this.$options.popularItems;
+      this.loading = true;
+      this.header = this.$options.popularItemsTitle;
       setTimeout(() => {
         this.loading = false;
       }, import.meta.env.VITE_TIMEOUT || 500);
     },
 
     changeHeader() {
-      this.header = this.search.length > 0 ? "Search..." : this.$options.popularItems;
+      this.header = this.search.length > 0 ? "Search..." : this.$options.popularItemsTitle;
     }
   },
 
@@ -97,14 +92,22 @@ export default {
       return this.$store.state.items.search;
     },
 
+    items() {
+      return this.$store.state.items.allItems;
+    },
+
+    popularItems() {
+      return this.$store.getters.popularItems;
+    },
+
     filteredItems() {
       if (this.search) {
         return this.items.filter(search => search.title.toLowerCase().includes(this.search.toLowerCase()));
       }
       if (this.selectedCategory) {
-        return dataAPI.getItemsByCategory(this.selectedCategory);
+        return this.$store.getters.getItemsByCategory(this.selectedCategory);
       }
-      return this.items;
+      return this.popularItems;
     },
 
     selectedCategory: {
@@ -117,7 +120,7 @@ export default {
     },
   },
 
-  popularItems: "Popular items",
+  popularItemsTitle: "Popular items",
 
   watch: {
     search(newValue, oldValue) {

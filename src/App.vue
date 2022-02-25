@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {defineComponent, watch, ref, computed} from 'vue'
+import {defineComponent, watch, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 import {SUPPORT_LOCALES} from './i18n'
@@ -21,6 +21,7 @@ export default defineComponent({
     vHeader,
     vLoading
   },
+
   data() {
     return {}
   },
@@ -32,7 +33,7 @@ export default defineComponent({
   },
 
   created() {
-    console.log('app created');
+    this.$store.dispatch("getAllItems");
     this.$store.dispatch("initShoppingCart");
     this.$store.dispatch("setLoading", false);
   },

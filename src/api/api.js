@@ -15,14 +15,9 @@ export const dataAPI = {
     getCategories() {
         return categories;
     },
-    getPopularItems() {
-        return items.filter(item => item.popular === true);
-    },
-    getItemsByCategory(categoryId) {
-        return items.filter(item => item.category === categoryId)
-    },
-    getItemsById(id) {
-        return items.filter(item => id.includes(item.id));
+
+    getAllItems(id) {
+        return items;
     }
     /*
         getAccreditation(tan) {
