@@ -69,6 +69,7 @@ export default {
       this.selectedCategory = category.id;
       this.loading = true;
       this.header = category.title;
+      this.$router.push({name: 'category', params: {locale: this.$i18n.locale, category: category.slug}});
       setTimeout(() => {
         this.loading = false;
       }, import.meta.env.VITE_TIMEOUT || 500);

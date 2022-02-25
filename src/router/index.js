@@ -29,6 +29,11 @@ export function setupRouter(i18n) {
                     component: load('Cart')
                 },
                 {
+                    path: 'category/:category?',
+                    name: 'category',
+                    component: Home
+                },
+                {
                     path: ':pathMatch(.*)*',
                     name: 'NotFound',
                     component: load('404')
