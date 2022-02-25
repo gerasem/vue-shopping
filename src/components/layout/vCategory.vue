@@ -21,7 +21,6 @@
 
 <script>
 import imagePlaceholder from '@/assets/images/320x240.png'
-import {dataAPI} from "@/api/api.js";
 
 export default {
   props: {},

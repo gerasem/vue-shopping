@@ -75,6 +75,12 @@ export default {
     return {}
   },
 
+  created() {
+    if(this.$route.name === 'search') {
+      this.search = this.$route.query.s;
+    }
+  },
+
   computed: {
     itemsInCartTotalCount() {
       return this.$store.getters.getTotal.quantity;
@@ -110,9 +116,9 @@ export default {
 
   watch: {
     $route(to) {
-      if (to.name !== 'home') {
-        this.search = "";
-      }
+      if (to.name === 'home') return;
+      if (to.name === 'search') return;
+      this.search = "";
     },
   }
 }

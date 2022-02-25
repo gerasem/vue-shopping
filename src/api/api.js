@@ -21,23 +21,23 @@ export const dataAPI = {
     }
     /*
         getAccreditation(tan) {
-            return instance.get(`/accreditation/${tan}`)
+            return instance.get(`/foo/${bar}`)
                 .then(response => {
                     return response.data
                 })
                 .catch(e => {
-                    console.error('No data for accreditation', e);
+                    console.error('', e);
                 })
         },
         sendInvites(data) {
-            return instance.post('/email/send_invites', {
+            return instance.post('/foo/bar', {
                 data
             })
                 .then(() => {
                     return true
                 })
                 .catch(e => {
-                    console.error('Error by sending invites', e);
+                    console.error('', e);
                     return false;
                 })
         }*/

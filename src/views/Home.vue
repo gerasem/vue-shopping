@@ -92,7 +92,7 @@ export default {
     },
 
     changeHeader(title = this.$options.popularItemsTitle) {
-      if(this.search.length){
+      if (this.search.length) {
         this.header = "Search...";
       } else {
         this.header = title;
@@ -135,6 +135,14 @@ export default {
   watch: {
     search(newValue, oldValue) {
       this.changeHeader();
+      if (this.search.length > 0) {
+        this.$router.push({name: 'search', params: {locale: this.$i18n.locale}, query: {s: this.search}});
+      }
+
+      if (newValue.length === 0) {
+        this.$router.push({name: 'home', params: {locale: this.$i18n.locale}});
+      }
+
       if (this.search.length > 0 && this.search.length <= 1 && oldValue <= 2) {
         this.loading = true;
         this.selectedCategory = null;

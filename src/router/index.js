@@ -29,6 +29,11 @@ export function setupRouter(i18n) {
                     component: load('Cart')
                 },
                 {
+                    path: 'search',
+                    name: 'search',
+                    component: Home
+                },
+                {
                     path: 'category/:category?',
                     name: 'category',
                     component: Home
