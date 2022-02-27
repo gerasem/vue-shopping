@@ -6,7 +6,7 @@
     <template v-if="!loading">
       <main class="container-fluid">
         <h1>Cart</h1>
-        <template v-if="itemsInCart.length">
+        <template v-if="itemsInCart">
           <div class="row">
             <div class="col-sm-12 col-md-8">
               <div class="cart__items" v-for="item in itemsInCart" :key="item.title">
@@ -32,6 +32,7 @@
         <template v-else>
           <p>Shopping cart is empty</p>
         </template>
+        <div class="cart__button cart__button--delete" @click="deleteCart()">Delete cart</div>
       </main>
     </template>
   </Transition>
@@ -71,6 +72,12 @@ export default {
         this.$store.commit('addProductToCart', value)
       }
     },
+  },
+
+  methods: {
+    deleteCart() {
+      this.$store.commit('deleteCart');
+    }
   },
 
   watch: {

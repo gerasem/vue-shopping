@@ -1,71 +1,57 @@
 export const cart = {
     state() {
         return {
-            itemsInCart: [
-                /*{
-                    id: 1,
-                    name: "lorem ipsum",
-                    price: 29,
-                    old_price: 35,
-                    quantity: 2
-                },
-                {
-                    id: 2,
-                    name: "sdgsdf",
-                    price: 89,
-                    old_price: 92,
-                    quantity: 1
-                },
-                {
-                    id: 3,
-                    name: "sdfsdf",
-                    price: 21,
-                    old_price: null,
-                    quantity: 1
-                },
-                {
-                    id: 4,
-                    name: "sdfsdf",
-                    price: 21,
-                    old_price: null,
-                    quantity: 1
-                },*/
-            ],
+            itemsInCart: [],
+            cartLS: [],
         }
     },
     getters: {
         // return an object with total price and total count of items in cart
         getTotal(state) {
+            if (!state.itemsInCart) return {price: 0, quantity: 0}
             return state.itemsInCart.reduce((total, item) => {
                 const {price, quantity} = item;
                 total.price += price;
-                total.quantity += quantity;
+                total.quantity += quantity || 0;
                 return total
             }, {price: 0, quantity: 0});
         }
     },
     mutations: {
         getItemsFromLS(state) {
-            // todo get ids and quantity from LS, then get another params from server
-            const itemsFromLS = localStorage.getItem("itemsInCart");
-            if(itemsFromLS) {
-                state.itemsInCart = JSON.parse(itemsFromLS);
+            const readLS = localStorage.getItem("itemsInCart");
+            if (readLS) {
+                state.cartLS = JSON.parse(readLS);
             }
         },
 
+        deleteCart(state) {
+            state.itemsInCart = [];
+            localStorage.setItem("itemsInCart", null);
+        },
+
         pushItemToCart(state, item) {
-            item.item.quantity = 1;
-            state.itemsInCart = [...state.itemsInCart, item.item]
+            const addItem = {
+                id: item.item.id,
+                quantity: 1,
+            }
+            state.cartLS = [...state.cartLS, addItem];
+            localStorage.setItem("itemsInCart", JSON.stringify(state.cartLS));
         }
     },
     actions: {
-        initShoppingCart({commit}) {
+        initShoppingCart({commit, state, rootState}) {
             commit('getItemsFromLS');
+            console.log('get cartLS', state.cartLS)
+            state.cartLS.forEach(item => {
+                const itemInDB = rootState.items.allItems.filter(itemDB => itemDB.id === item.id);
+                const mergedItem = {...item, ...itemInDB[0]}
+                state.itemsInCart = [...state.itemsInCart, mergedItem]
+            })
         },
 
-        addProductToCart({ commit, state }, item) {
-
-            console.log('added items to cart vuex', item.title);
+        addProductToCart({commit, state}, item) {
+            console.log('added items to cart vuex');
             commit('pushItemToCart', item)
         }
     },

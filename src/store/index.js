@@ -45,7 +45,6 @@ export default createStore({
             } else {
                 setTimeout(() => {
                     commit('setLoading', false);
-                    console.log('set loading false')
                 }, import.meta.env.VITE_TIMEOUT || 500);
             }
         }
