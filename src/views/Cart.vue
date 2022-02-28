@@ -11,8 +11,10 @@
             <div class="col-sm-12 col-md-8">
               <div class="cart__items" v-for="item in itemsInCart" :key="item.title">
                 <div class="cart__item">
-                  <a :href="item.slug" class="cart__image">
-                    <img :src="item.image" :alt="item.title">
+                  <a :href="item.slug">
+                    <div class="cart__image-container">
+                      <img :src="item.image" :alt="item.title" class="cart__image">
+                    </div>
                   </a>
                   <div class="cart__main">
                     <div class="cart__prices">
@@ -98,5 +100,30 @@ export default {
 .v-enter-from {
   opacity: 0;
   transform: translateY(30px);
+}
+
+.cart {
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  &__image-container {
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 225px;
+    height: 170px;
+    display: block;
+    background-color: $background-gray;
+    clip-path: $clip-path;
+    transition: .2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 </style>

@@ -27,7 +27,8 @@ export const cart = {
 
         deleteCart(state) {
             state.itemsInCart = [];
-            localStorage.setItem("itemsInCart", null);
+            state.cartLS = [];
+            localStorage.setItem("itemsInCart",  JSON.stringify(state.cartLS));
         },
 
         pushItemToCart(state, item) {
@@ -36,23 +37,38 @@ export const cart = {
                 quantity: 1,
             }
             state.cartLS = [...state.cartLS, addItem];
+            state.itemsInCart = [...state.itemsInCart, addItem];
             localStorage.setItem("itemsInCart", JSON.stringify(state.cartLS));
+        },
+
+        // todo 2
+        incrementQuantityOfItemInCart(state, item) {
+            const cartItem = state.itemsInCart.filter(itemCart => itemCart.id === item.id);
+            cartItem.quantity++;
         }
     },
     actions: {
         initShoppingCart({commit, state, rootState}) {
             commit('getItemsFromLS');
             console.log('get cartLS', state.cartLS)
-            state.cartLS.forEach(item => {
-                const itemInDB = rootState.items.allItems.filter(itemDB => itemDB.id === item.id);
-                const mergedItem = {...item, ...itemInDB[0]}
-                state.itemsInCart = [...state.itemsInCart, mergedItem]
-            })
+            if (state.cartLS) {
+                state.cartLS.forEach(item => {
+                    const itemInDB = rootState.items.allItems.filter(itemDB => itemDB.id === item.id);
+                    const mergedItem = {...item, ...itemInDB[0]}
+                    state.itemsInCart = [...state.itemsInCart, mergedItem]
+                })
+            }
         },
 
         addProductToCart({commit, state}, item) {
-            console.log('added items to cart vuex');
-            commit('pushItemToCart', item)
+            //todo 1
+            const itemInCart = state.itemsInCart.filter(itemCart => itemCart.id === item.id);
+            console.log('is item in cart?', itemInCart);
+            if (itemInCart.length) {
+                commit('incrementQuantityOfItemInCart', item)
+            } else {
+                commit('pushItemToCart', item)
+            }
         }
     },
 }
