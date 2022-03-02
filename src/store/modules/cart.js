@@ -2,7 +2,7 @@ export const cart = {
     state() {
         return {
             itemsInCart: [],
-            cartLS: [],
+            cart: [],
         }
     },
     getters: {
@@ -21,53 +21,67 @@ export const cart = {
         getItemsFromLS(state) {
             const readLS = localStorage.getItem("itemsInCart");
             if (readLS) {
-                state.cartLS = JSON.parse(readLS);
+                state.cart = JSON.parse(readLS);
             }
         },
 
         deleteCart(state) {
             state.itemsInCart = [];
-            state.cartLS = [];
-            localStorage.setItem("itemsInCart", JSON.stringify(state.cartLS));
+            state.cart = [];
+            localStorage.setItem("itemsInCart", JSON.stringify(state.cart));
         },
 
         pushItemToCart(state, item) {
+            // Save item in LS
             const addItem = {
-                id: item.item.id,
+                id: item.id,
                 quantity: 1,
             }
-            state.cartLS = [...state.cartLS, addItem];
-            localStorage.setItem("itemsInCart", JSON.stringify(state.cartLS));
+            state.cart = [...state.cart, addItem];
+
+            // Save item in Store
+            item.store[0].quantity = 1;
+            state.itemsInCart = [...state.itemsInCart, item.store[0]]
         },
 
-        incrementQuantityOfItemInCart(state, item) {
-            const cartItem = state.itemsInCart.filter(itemCart => itemCart.id === item.item.id);
-            cartItem[0].quantity++;
+        incrementQuantityOfItemInCart(state, itemId) {
+            const itemStore = state.itemsInCart.filter(itemCart => itemCart.id === itemId);
+            itemStore[0].quantity++;
+            const itemLS = state.cart.filter(item => item.id === itemId);
+            itemLS[0].quantity++;
         },
+
+        saveToLS(state) {
+            localStorage.setItem("itemsInCart", JSON.stringify(state.cart));
+        }
     },
     actions: {
         initShoppingCart({commit, state, rootGetters}) {
-            commit('getItemsFromLS');
-            console.log('get cartLS', state.cartLS)
-            if (state.cartLS) {
-                state.cartLS.forEach(item => {
-                    const itemInDB = rootGetters.getSearchedItem(item.id);
-                    const mergedItem = {...item, ...itemInDB[0]};
-                    state.itemsInCart = [...state.itemsInCart, mergedItem];
-                })
-            }
+             commit('getItemsFromLS');
+             console.log('get cartLS', state.cart)
+             if (state.cart) {
+                 state.cart.forEach(item => {
+                     const itemInDB = rootGetters.getSearchedItem(item.id);
+                     const mergedItem = {...item, ...itemInDB[0], quantity: item.quantity};
+                     state.itemsInCart = [...state.itemsInCart, mergedItem];
+                 })
+             }
         },
 
-        addProductToCart({commit, state, rootState}, item) {
-            const itemInCart = state.itemsInCart.filter(itemCart => itemCart.id === item.item.id);
+        addProductToCart({commit, state, rootGetters}, itemId) {
+            const itemInCart = state.itemsInCart.filter(itemCart => itemCart.id === itemId);
+
             console.log('is item in cart?', itemInCart);
             if (itemInCart.length) {
-                commit('incrementQuantityOfItemInCart', item);
+                commit('incrementQuantityOfItemInCart', itemId);
+                commit('saveToLS');
             } else {
-                const itemInDB = rootState.items.allItems.filter(itemDB => itemDB.id === item.item.id);
-                const mergedItem = {...item, ...itemInDB[0], quantity: 1}
-                state.itemsInCart = [...state.itemsInCart, mergedItem];
-                commit('pushItemToCart', item);
+                const itemFromStore = rootGetters.getSearchedItem(itemId);
+                commit('pushItemToCart', {
+                    id: itemId,
+                    store: itemFromStore
+                });
+                commit('saveToLS');
             }
         }
     },

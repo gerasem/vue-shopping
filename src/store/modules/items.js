@@ -16,8 +16,8 @@ export const items = {
             return state.allItems.filter(item => item.category === categoryId)
         },
 
-        getSearchedItem: (state) => (searchedItem) => {
-            return state.allItems.filter(item => item.category === searchedItem.id)
+        getSearchedItem: (state) => (searchedItemId) => {
+            return state.allItems.filter(item => item.id === searchedItemId)
         },
     },
     mutations: {
