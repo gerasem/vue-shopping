@@ -14,7 +14,11 @@ export const items = {
 
         getItemsByCategory: (state) => (categoryId) => {
             return state.allItems.filter(item => item.category === categoryId)
-        }
+        },
+
+        getSearchedItem: (state) => (searchedItem) => {
+            return state.allItems.filter(item => item.category === searchedItem.id)
+        },
     },
     mutations: {
         setSearch(state, search) {
