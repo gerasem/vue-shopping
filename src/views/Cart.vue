@@ -6,7 +6,7 @@
     <template v-if="!loading">
       <main class="container-fluid">
         <h1>Cart</h1>
-        <template v-if="itemsInCart">
+        <template v-if="itemsInCart.length">
           <div class="row">
             <div class="col-sm-12 col-md-8">
               <div class="cart__items" v-for="item in itemsInCart" :key="item.title">
@@ -23,7 +23,7 @@
                     <h4 class="cart__title">{{ item.title }}</h4>
                   </div>
                   <div class="cart__actions">
-                    <input type="text" :value="item.quantity">
+                    <input type="number" :value="item.quantity" @change="onChangeQuantity($event, item.id)">
                   </div>
                   <a href="#">X</a>
                 </div>
@@ -34,7 +34,9 @@
         <template v-else>
           <p>Shopping cart is empty</p>
         </template>
-        <div class="cart__button cart__button--delete" @click="deleteCart()">Delete cart</div>
+        <div v-show="itemsInCart.length" class="cart__button cart__button--delete" @click="deleteCart()">
+          Delete cart
+        </div>
       </main>
     </template>
   </Transition>
@@ -78,7 +80,17 @@ export default {
 
   methods: {
     deleteCart() {
+      this.$store.dispatch("setLoading", true);
       this.$store.commit('deleteCart');
+      this.$store.dispatch("setLoading", false);
+    },
+
+    onChangeQuantity(event, itemId) {
+      const changedQuantity = +event.target.value;
+      this.$store.dispatch("changeQuantityOfItem", {
+        id: itemId,
+        quantity: changedQuantity
+      });
     }
   },
 
@@ -124,6 +136,11 @@ export default {
     &:hover {
       transform: scale(1.05);
     }
+  }
+
+  &__button {
+    cursor: pointer;
+    margin-top: 2rem;
   }
 }
 </style>

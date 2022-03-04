@@ -46,9 +46,16 @@ export const cart = {
 
         incrementQuantityOfItemInCart(state, itemId) {
             const itemStore = state.itemsInCart.filter(itemCart => itemCart.id === itemId);
-            itemStore[0].quantity++;
             const itemLS = state.cart.filter(item => item.id === itemId);
+            itemStore[0].quantity++;
             itemLS[0].quantity++;
+        },
+
+        changeQuantityOfItem(state, item) {
+            const itemStore = state.itemsInCart.filter(itemCart => itemCart.id === item.itemId);
+            const itemLS = state.cart.filter(itemLS => itemLS.id === item.itemId);
+            itemStore[0].quantity = item.quantity;
+            itemLS[0].quantity = item.quantity;
         },
 
         saveToLS(state) {
@@ -57,21 +64,20 @@ export const cart = {
     },
     actions: {
         initShoppingCart({commit, state, rootGetters}) {
-             commit('getItemsFromLS');
-             console.log('get cartLS', state.cart)
-             if (state.cart) {
-                 state.cart.forEach(item => {
-                     const itemInDB = rootGetters.getSearchedItem(item.id);
-                     const mergedItem = {...item, ...itemInDB[0], quantity: item.quantity};
-                     state.itemsInCart = [...state.itemsInCart, mergedItem];
-                 })
-             }
+            commit('getItemsFromLS');
+            console.log('get cartLS', state.cart)
+            if (state.cart) {
+                state.cart.forEach(item => {
+                    const itemInDB = rootGetters.getSearchedItem(item.id);
+                    const mergedItem = {...item, ...itemInDB[0], quantity: item.quantity};
+                    state.itemsInCart = [...state.itemsInCart, mergedItem];
+                })
+            }
         },
 
         addProductToCart({commit, state, rootGetters}, itemId) {
             const itemInCart = state.itemsInCart.filter(itemCart => itemCart.id === itemId);
 
-            console.log('is item in cart?', itemInCart);
             if (itemInCart.length) {
                 commit('incrementQuantityOfItemInCart', itemId);
                 commit('saveToLS');
@@ -83,6 +89,14 @@ export const cart = {
                 });
                 commit('saveToLS');
             }
+        },
+
+        changeQuantityOfItem({commit}, item) {
+            commit("changeQuantityOfItem", {
+                itemId: item.id,
+                quantity: item.quantity
+            });
+            commit('saveToLS');
         }
     },
 }
