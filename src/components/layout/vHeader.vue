@@ -45,7 +45,9 @@
                          class="icon__link icon--cursor"
                          :class="{'icon__link--active': isCartNotEmpty}">
               <i class="icon__content icon__content--bag bi bi-bag"></i>
-              <span v-if="isCartNotEmpty" class="icon__count">{{ itemsInCartTotalCount }}</span>
+              <span v-if="isCartNotEmpty" class="icon__count" :style="minHeightForTotalCount">
+                {{ totalCount.toFixed(0) }}
+              </span>
             </router-link>
           </div>
         </div>
@@ -55,8 +57,10 @@
 </template>
 
 <script>
-import {useI18n} from 'vue-i18n'
+import {useI18n} from 'vue-i18n';
+import gsap from 'gsap';
 import vLanguage from "@/components/layout/vLanguage.vue";
+
 
 export default {
   props: {},
@@ -72,13 +76,17 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      totalCount: 0,
+    }
   },
 
   created() {
-    if(this.$route.name === 'search') {
+    if (this.$route.name === 'search') {
       this.search = this.$route.query.s;
     }
+
+    this.totalCount = this.itemsInCartTotalCount;
   },
 
   computed: {
@@ -88,6 +96,12 @@ export default {
 
     isCartNotEmpty() {
       return this.itemsInCartTotalCount !== 0;
+    },
+
+    minHeightForTotalCount() {
+      return {
+        'min-width': this.totalCount.toString().length + '8' + 'px',
+      }
     },
 
     search: {
@@ -120,6 +134,10 @@ export default {
       if (to.name === 'search') return;
       this.search = "";
     },
+
+    itemsInCartTotalCount(n) {
+      gsap.to(this, {duration: 0.5, totalCount: Number(n) || 0})
+    }
   }
 }
 </script>

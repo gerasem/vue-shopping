@@ -23,7 +23,8 @@
                     <h4 class="cart__title">{{ item.title }}</h4>
                   </div>
                   <div class="cart__actions">
-                    <input type="number" :value="item.quantity" @change="onChangeQuantity($event, item.id)">
+                    <input type="number" min="1" max="999" :value="item.quantity"
+                           @change="onChangeQuantity($event, item.id)">
                   </div>
                   <a href="#">X</a>
                 </div>
@@ -89,9 +90,9 @@ export default {
       const changedQuantity = +event.target.value;
       this.$store.dispatch("changeQuantityOfItem", {
         id: itemId,
-        quantity: changedQuantity
+        quantity: changedQuantity > 0 ? changedQuantity : 0,
       });
-    }
+    },
   },
 
   watch: {

@@ -9,12 +9,14 @@ export const cart = {
         // return an object with total price and total count of items in cart
         getTotal(state) {
             if (!state.itemsInCart) return {price: 0, quantity: 0};
-            return state.itemsInCart.reduce((total, item) => {
+            const total = state.itemsInCart.reduce((total, item) => {
                 const {price, quantity} = item;
                 total.price += price;
                 total.quantity += quantity || 0;
                 return total;
             }, {price: 0, quantity: 0});
+            if (total.price < 0 || total.quantity < 0) return {price: 0, quantity: 0};
+            return total;
         }
     },
     mutations: {
