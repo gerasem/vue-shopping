@@ -8,7 +8,7 @@
     <div class="cart__main">
       <div class="cart__prices">
         <div class="cart__price">{{ item.price }}€</div>
-        <div class="cart__old-price">{{ item.old_price }}€</div>
+        <div class="cart__old-price" v-if="item.old_price">{{ item.old_price }}€</div>
         <div class="cart__discount" v-if="getSale">{{ getSale }}%</div>
       </div>
       <h4 class="cart__title">{{ item.title }}</h4>
@@ -103,7 +103,7 @@ export default {
   &__item {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 
   &__image-container {

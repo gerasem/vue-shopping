@@ -16,7 +16,23 @@
               </div>
             </div>
             <div class="col-sm-12 col-md-4">
-              Total price: {{ totalPrice.toFixed(0) }} €
+              <div class="cart__form">
+                <div class="cart__info">
+                  Free shipping from {{ $options.freeShippingFrom }}€
+                </div>
+                <div class="cart__form-container">
+                  <div class="text-center">
+                    <div>
+                      Total price: <span class="cart__form-price">{{ totalPrice.toFixed(0) }}€</span>
+                    </div>
+                    <div>
+                      Shipping: <span class="cart__form-price">{{ shippingCost }}</span>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </template>
@@ -75,6 +91,13 @@ export default {
         this.$store.commit('addProductToCart', value)
       }
     },
+
+    shippingCost() {
+      if (this.totalPrice >= this.$options.freeShippingFrom) {
+        return "Free";
+      }
+      return "5€";
+    }
   },
 
   methods: {
@@ -96,7 +119,9 @@ export default {
     itemsInCartTotalPrice(n) {
       gsap.to(this, {duration: 0.5, totalPrice: Number(n) || 0})
     }
-  }
+  },
+
+  freeShippingFrom: 80,
 }
 </script>
 
@@ -108,5 +133,28 @@ export default {
 .v-enter-from {
   opacity: 0;
   transform: translateY(30px);
+}
+
+.cart {
+  &__form {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  }
+
+  &__form-container {
+    padding: 1.5rem;
+  }
+
+  &__form-price {
+    font-weight: 600;
+    margin-left: .5rem;
+  }
+
+  &__info{
+    background-color: rgb(255, 249, 241)  ;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    color: $color-secondary;
+    font-weight: 600;
+  }
 }
 </style>
