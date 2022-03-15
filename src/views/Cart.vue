@@ -10,24 +10,9 @@
           <div class="row">
             <div class="col-sm-12 col-md-8">
               <div class="cart__items" v-for="item in itemsInCart" :key="item.title">
-                <div class="cart__item">
-                  <a :href="item.slug">
-                    <div class="cart__image-container">
-                      <img :src="item.image" :alt="item.title" class="cart__image">
-                    </div>
-                  </a>
-                  <div class="cart__main">
-                    <div class="cart__prices">
-                      {{ item.price }}
-                    </div>
-                    <h4 class="cart__title">{{ item.title }}</h4>
-                  </div>
-                  <div class="cart__actions">
-                    <input type="number" min="1" max="999" :value="getItemCount(item.quantity)"
-                           @input="onChangeQuantity($event, item.id)">
-                  </div>
-                  <div @click="deleteItem(item)">X</div>
-                </div>
+                <cart-item :item="item">
+
+                </cart-item>
               </div>
             </div>
             <div class="col-sm-12 col-md-4">
@@ -48,6 +33,7 @@
 
 <script>
 import vLoading from "@/components/layout/vLoading.vue";
+import CartItem from "@/components/layout/CartItem.vue";
 import gsap from "gsap";
 
 export default {
@@ -61,6 +47,7 @@ export default {
 
   components: {
     vLoading,
+    CartItem
   },
 
   created() {
@@ -97,26 +84,6 @@ export default {
       this.$store.dispatch("setLoading", false);
     },
 
-    onChangeQuantity(event, itemId) {
-      let changedQuantity = +event.target.value;
-
-      if (changedQuantity < 0) {
-        changedQuantity = 1;
-      }
-
-      this.$store.dispatch("changeQuantityOfItem", {
-        id: itemId,
-        quantity: changedQuantity,
-      });
-    },
-
-    getItemCount(quantity) {
-      return quantity === 0 ? '' : quantity;
-    },
-
-    deleteItem(item) {
-      this.$store.dispatch("handleOnDeleteItem", item);
-    }
   },
 
   watch: {
@@ -141,35 +108,5 @@ export default {
 .v-enter-from {
   opacity: 0;
   transform: translateY(30px);
-}
-
-.cart {
-  &__item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  &__image-container {
-    overflow: hidden;
-  }
-
-  &__image {
-    width: 225px;
-    height: 170px;
-    display: block;
-    background-color: $background-gray;
-    clip-path: $clip-path;
-    transition: .2s;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  &__button {
-    cursor: pointer;
-    margin-top: 2rem;
-  }
 }
 </style>

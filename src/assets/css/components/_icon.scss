@@ -50,12 +50,23 @@
       }
     }
 
+    &--disabled {
+      .icon__content {
+        opacity: .5;
+        cursor: not-allowed !important;
+      }
+    }
+
     &:hover, &:focus {
       color: $color-secondary;
 
       .icon__content {
         color: $color-secondary;
       }
+    }
+
+    &--cart {
+      margin-left: 0;
     }
   }
 

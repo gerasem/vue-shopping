@@ -5,9 +5,16 @@ $color-secondary: #dfa44c;
 $text-muted: #aaa;
 $background-gray: #f7f7f7;
 
-$pol-a: 15px;
-$pol-b: calc(100% - 15px);
-$clip-path: polygon($pol-a 0%, $pol-b 0%, 100% $pol-a, 100% $pol-b, $pol-b 100%, $pol-a 100%, 0% $pol-b, 0% $pol-a);
+:root{
+  --pol-a: 15px;
+  --pol-b: calc(100% - var(--pol-a));
+  @media (max-width: 640px) {
+    --pol-a: 10px;
+    --pol-b: calc(100% - var(--pol-a));
+  }
+}
+
+$clip-path: polygon(var(--pol-a) 0%,  var(--pol-b) 0%, 100% var(--pol-a), 100%  var(--pol-b),  var(--pol-b) 100%, var(--pol-a) 100%, 0%  var(--pol-b), 0% var(--pol-a));
 
 // overwrite standard bootstrap variables
 $input-btn-padding-x: 0;

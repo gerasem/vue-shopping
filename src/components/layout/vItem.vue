@@ -7,10 +7,10 @@
         </div>
       </router-link>
       <div class="item__description">
-        <div class="item__price">{{ item.price }} €</div>
-        <div class="item__old-price" v-if="item.old_price">{{ item.old_price }} €</div>
+        <div class="item__price">{{ item.price }}€</div>
+        <div class="item__old-price" v-if="item.old_price">{{ item.old_price }}€</div>
         <div class="item__discount" v-if="getSale">{{ getSale }}%</div>
-        <div class="icon__link icon--cursor" @click="addToCart(item)">
+        <div class="icon__link icon--cursor" @click="addToCart()">
           <i class="icon__content icon__content--bag bi bi-bag-plus"></i>
         </div>
       </div>
@@ -48,8 +48,8 @@ export default {
   },
 
   methods: {
-    addToCart(item) {
-      this.$store.dispatch('addProductToCart', item.id)
+    addToCart() {
+      this.$store.dispatch('addProductToCart', this.item.id)
     }
   },
 }
