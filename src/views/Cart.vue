@@ -30,6 +30,9 @@
                 </div>
               </div>
             </div>
+            <div class="col-sm-12 col-md-4">
+              Total price:  {{ totalPrice.toFixed(0) }} €
+            </div>
           </div>
         </template>
         <template v-else>
@@ -45,12 +48,14 @@
 
 <script>
 import vLoading from "@/components/layout/vLoading.vue";
+import gsap from "gsap";
 
 export default {
   name: "Cart",
   data() {
     return {
       loading: true,
+      totalPrice: 0,
     }
   },
 
@@ -62,11 +67,17 @@ export default {
     setTimeout(() => {
       this.loading = false;
     }, import.meta.env.VITE_TIMEOUT || 500);
+
+    this.totalPrice = this.itemsInCartTotalPrice;
   },
 
   computed: {
     search() {
       return this.$store.state.items.search;
+    },
+
+    itemsInCartTotalPrice() {
+      return this.$store.getters.getTotal.price;
     },
 
     itemsInCart: {
@@ -109,6 +120,10 @@ export default {
       if (this.search.length > 0) {
         this.$router.push({name: 'home', params: {locale: this.$i18n.locale}})
       }
+    },
+
+    itemsInCartTotalPrice(n) {
+      gsap.to(this, {duration: 0.5, totalPrice: Number(n) || 0})
     }
   }
 }

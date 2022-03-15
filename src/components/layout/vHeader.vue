@@ -136,11 +136,9 @@ export default {
     },
 
     itemsInCartTotalCount(n) {
-      gsap.to(this, {duration: this.$options.duration, totalCount: Number(n) || 0})
-    }
+      gsap.to(this, {duration: 0.5, totalCount: Number(n) || 0})
+    },
   },
-
-  duration: 0.5
 }
 </script>
 

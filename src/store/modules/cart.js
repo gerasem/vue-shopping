@@ -11,7 +11,7 @@ export const cart = {
             if (!state.itemsInCart) return {price: 0, quantity: 0};
             const total = state.itemsInCart.reduce((total, item) => {
                 const {price, quantity} = item;
-                total.price += price;
+                total.price += price * quantity;
                 total.quantity += quantity || 0;
                 return total;
             }, {price: 0, quantity: 0});
