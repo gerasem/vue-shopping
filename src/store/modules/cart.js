@@ -62,6 +62,11 @@ export const cart = {
 
         saveToLS(state) {
             localStorage.setItem("itemsInCart", JSON.stringify(state.cart));
+        },
+
+        deleteItemFromCart(state, item) {
+            state.itemsInCart = state.itemsInCart.filter(i => i !== item);
+            state.cart = state.cart.filter(i => i.id !== item.id);
         }
     },
     actions: {
@@ -98,6 +103,11 @@ export const cart = {
                 itemId: item.id,
                 quantity: item.quantity
             });
+            commit('saveToLS');
+        },
+
+        handleOnDeleteItem({commit}, item) {
+            commit('deleteItemFromCart', item);
             commit('saveToLS');
         }
     },

@@ -26,12 +26,12 @@
                     <input type="number" min="1" max="999" :value="getItemCount(item.quantity)"
                            @input="onChangeQuantity($event, item.id)">
                   </div>
-                  <a href="#">X</a>
+                  <div @click="deleteItem(item)">X</div>
                 </div>
               </div>
             </div>
             <div class="col-sm-12 col-md-4">
-              Total price:  {{ totalPrice.toFixed(0) }} €
+              Total price: {{ totalPrice.toFixed(0) }} €
             </div>
           </div>
         </template>
@@ -112,6 +112,10 @@ export default {
 
     getItemCount(quantity) {
       return quantity === 0 ? '' : quantity;
+    },
+
+    deleteItem(item) {
+      this.$store.dispatch("handleOnDeleteItem", item);
     }
   },
 
