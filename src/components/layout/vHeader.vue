@@ -125,7 +125,7 @@ export default {
     handleOnClickOnLogo() {
       this.search = "";
       this.$store.commit('setSelectedCategory', null);
-    }
+    },
   },
 
   watch: {

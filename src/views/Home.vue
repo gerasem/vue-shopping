@@ -139,7 +139,7 @@ export default {
         this.$router.push({name: 'search', params: {locale: this.$i18n.locale}, query: {s: this.search}});
       }
 
-      if (newValue.length === 0) {
+      if (newValue.length === 0 && this.$route.name === "search") {
         this.$router.push({name: 'home', params: {locale: this.$i18n.locale}});
       }
 
