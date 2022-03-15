@@ -23,12 +23,14 @@
                 <div class="cart__form-container">
                   <div class="text-center">
                     <div>
-                      Total price: <span class="cart__form-price">{{ totalPrice.toFixed(0) }}€</span>
+                      Price: <span class="cart__form-price">{{ totalPrice.toFixed(0) }}€</span>
                     </div>
                     <div>
                       Shipping: <span class="cart__form-price">{{ shippingCost }}</span>
                     </div>
-
+                    <div>
+                      Total price: <span class="cart__form-price">...</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -149,8 +151,8 @@ export default {
     margin-left: .5rem;
   }
 
-  &__info{
-    background-color: rgb(255, 249, 241)  ;
+  &__info {
+    background-color: rgb(255, 249, 241);
     padding: 1rem 1.5rem;
     text-align: center;
     color: $color-secondary;
