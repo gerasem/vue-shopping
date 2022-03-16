@@ -16,8 +16,14 @@ const i18n = setupI18n({
 
 const router = setupRouter(i18n);
 
-createApp(App)
-    .use(router)
+const app = createApp(App);
+
+import components from '@/components/common/index.js';
+components.forEach(component => {
+    app.component(component.name, component);
+});
+
+app.use(router)
     .use(i18n)
     .use(store)
     .mount('#app');

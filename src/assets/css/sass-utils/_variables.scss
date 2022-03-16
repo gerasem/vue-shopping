@@ -6,10 +6,28 @@ $text-muted: #aaa;
 $background-gray: #f7f7f7;
 $color-separator: #F0F0F0;
 
+// bootstrap colors
+$theme-colors: (
+        "primary":    $color-primary,
+        "secondary":  $color-secondary,
+        //"success":    $success,
+        //"info":       $info,
+        //"warning":    $warning,
+        //"danger":     $danger,
+        //"light":      $light,
+        //"dark":       $dark
+);
+
+// breakpoints
+$screen-xs-max: 576px;
+$screen-sm-max: 768px;
+$screen-md-max: 992px;
+$screen-lg-max: 1200px;
+
 :root{
   --pol-a: 15px;
   --pol-b: calc(100% - var(--pol-a));
-  @media (max-width: 640px) {
+  @media (max-width: $screen-sm-max) {
     --pol-a: 10px;
     --pol-b: calc(100% - var(--pol-a));
   }
@@ -18,10 +36,4 @@ $color-separator: #F0F0F0;
 $clip-path: polygon(var(--pol-a) 0%,  var(--pol-b) 0%, 100% var(--pol-a), 100%  var(--pol-b),  var(--pol-b) 100%, var(--pol-a) 100%, 0%  var(--pol-b), 0% var(--pol-a));
 
 // overwrite standard bootstrap variables
-$input-btn-padding-x: 0;
-
-// breakpoints
-$screen-xs-max: 576px;
-$screen-sm-max: 768px;
-$screen-md-max: 992px;
-$screen-lg-max: 1200px;
+$border-radius: 0;

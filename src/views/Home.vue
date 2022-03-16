@@ -10,9 +10,9 @@
 
         <div class="row">
           <template v-for="item in filteredItems" :key="item.id">
-            <v-item :item="item">
 
-            </v-item>
+            <v-item :item="item"></v-item>
+
           </template>
           <template v-if="!filteredItems.length">
             <div class="col">
@@ -22,7 +22,7 @@
           <template v-if="selectedCategory">
             <div class="w-100"></div>
             <div class="col">
-              <a @click="showPopularItems()" class="btn btn-secondary">show all items</a>
+              <button-component @clickOnButton="showPopularItems()"></button-component>
             </div>
           </template>
         </div>
@@ -86,6 +86,7 @@ export default {
       this.selectedCategory = null;
       this.loading = true;
       this.changeHeader();
+      this.$router.push({name: 'home', params: {locale: this.$i18n.locale}});
       setTimeout(() => {
         this.loading = false;
       }, import.meta.env.VITE_TIMEOUT || 500);

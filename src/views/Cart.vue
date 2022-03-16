@@ -165,6 +165,8 @@ export default {
 
 .cart {
   &__form {
+    position: sticky;
+    top: 40px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
   }
 
