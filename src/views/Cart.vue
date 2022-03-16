@@ -18,18 +18,22 @@
             <div class="col-sm-12 col-md-4">
               <div class="cart__form">
                 <div class="cart__info">
-                  Free shipping from {{ $options.freeShippingFrom }}€
+                  Free shipping from {{ $store.state.cart.freeShippingFrom }}€
                 </div>
                 <div class="cart__form-container">
                   <div class="text-center">
                     <div>
-                      Price: <span class="cart__form-price">{{ totalPrice.toFixed(0) }}€</span>
+                      Price: <span class="cart__form-price">{{ itemsPrice.toFixed(0) }}€</span>
                     </div>
                     <div>
-                      Shipping: <span class="cart__form-price">{{ shippingCost }}</span>
+                      Shipping: <span class="cart__form-price">
+                      {{ freeShipping ? "Free" : `${$store.state.cart.shippingCost}€` }}
+                    </span>
                     </div>
                     <div>
-                      Total price: <span class="cart__form-price">...</span>
+                      Total price: <span class="cart__form-price cart__form-price--total">{{
+                        totalPrice.toFixed(0)
+                      }}€</span>
                     </div>
                   </div>
                 </div>
@@ -59,6 +63,7 @@ export default {
   data() {
     return {
       loading: true,
+      itemsPrice: 0,
       totalPrice: 0,
     }
   },
@@ -73,7 +78,8 @@ export default {
       this.loading = false;
     }, import.meta.env.VITE_TIMEOUT || 500);
 
-    this.totalPrice = this.itemsInCartTotalPrice;
+    this.itemsPrice = this.itemsInCartTotalPrice;
+    this.totalPrice = this.totalPriceWithShipping;
   },
 
   computed: {
@@ -94,11 +100,12 @@ export default {
       }
     },
 
-    shippingCost() {
-      if (this.totalPrice >= this.$options.freeShippingFrom) {
-        return "Free";
-      }
-      return "5€";
+    freeShipping() {
+      return this.$store.getters.freeShipping;
+    },
+
+    totalPriceWithShipping() {
+      return this.$store.getters.totalPriceWithShipping;
     }
   },
 
@@ -119,11 +126,13 @@ export default {
     },
 
     itemsInCartTotalPrice(n) {
-      gsap.to(this, {duration: 0.5, totalPrice: Number(n) || 0})
-    }
-  },
+      gsap.to(this, {duration: 0.5, itemsPrice: Number(n) || 0})
+    },
 
-  freeShippingFrom: 80,
+    totalPriceWithShipping(n) {
+      gsap.to(this, {duration: 0.5, totalPrice: Number(n) || 0})
+    },
+  },
 }
 </script>
 
@@ -149,6 +158,10 @@ export default {
   &__form-price {
     font-weight: 600;
     margin-left: .5rem;
+
+    &--total {
+      color: $color-primary;
+    }
   }
 
   &__info {

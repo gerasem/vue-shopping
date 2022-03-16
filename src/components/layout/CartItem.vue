@@ -20,7 +20,7 @@
         <i class="icon__content bi bi-dash-lg"></i>
       </div>
       <input type="text" class="cart__input" :value="getItemCount"
-             @input="onChangeQuantity($event, item.id)">
+             @input="onChangeQuantity($event)">
       <div class="icon__link icon__link--cart icon--cursor"
            :class="{'icon__link--disabled': item.quantity >= $options.maxCount}"
            @click="incrementCount()">
@@ -64,7 +64,7 @@ export default {
       this.$store.dispatch("handleOnDeleteItem", this.item);
     },
 
-    onChangeQuantity(event, itemId) {
+    onChangeQuantity(event) {
       let changedQuantity = +event.target.value;
 
       if (changedQuantity < 0) {
@@ -72,7 +72,7 @@ export default {
       }
 
       this.$store.dispatch("changeQuantityOfItem", {
-        id: itemId,
+        id: this.item.id,
         quantity: changedQuantity,
       });
     },
@@ -83,6 +83,10 @@ export default {
         return;
       }
       this.item.quantity++;
+      this.$store.dispatch("changeQuantityOfItem", {
+        id: this.item.id,
+        quantity: this.item.quantity,
+      });
     },
 
     decrementCount() {
@@ -91,6 +95,10 @@ export default {
         return;
       }
       this.item.quantity--;
+      this.$store.dispatch("changeQuantityOfItem", {
+        id: this.item.id,
+        quantity: this.item.quantity,
+      });
     }
   },
 

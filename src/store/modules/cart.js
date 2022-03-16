@@ -3,6 +3,8 @@ export const cart = {
         return {
             itemsInCart: [],
             cart: [],
+            freeShippingFrom: 80,
+            shippingCost: 5,
         }
     },
     getters: {
@@ -17,6 +19,18 @@ export const cart = {
             }, {price: 0, quantity: 0});
             if (total.price < 0 || total.quantity < 0) return {price: 0, quantity: 0};
             return total;
+        },
+
+        freeShipping(state, getters) {
+            return getters.getTotal.price >= state.freeShippingFrom;
+        },
+
+        totalPriceWithShipping(state, getters) {
+            if(getters.freeShipping) {
+                return getters.getTotal.price;
+            } else {
+                return getters.getTotal.price + state.shippingCost;
+            }
         }
     },
     mutations: {
