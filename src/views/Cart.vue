@@ -62,9 +62,10 @@
         <template v-else>
           <p>Shopping cart is empty</p>
         </template>
-        <div v-show="itemsInCart.length" class="cart__button cart__button--delete" @click="deleteCart()">
+
+        <button-component v-show="itemsInCart.length" @clickOnButton="deleteCart()">
           Delete cart
-        </div>
+        </button-component>
       </main>
     </template>
   </Transition>

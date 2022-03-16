@@ -1,8 +1,8 @@
 <template>
   <button type="button"
           @click="$emit('clickOnButton')"
-          class="btn btn-outline-primary">
-    show all items
+          class="btn btn-outline-primary button-component">
+    <slot></slot>
   </button>
 </template>
 
@@ -15,6 +15,12 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .button-component {
+    color: $color-text;
+    margin: .5rem 0;
+    &:hover, &:focus {
+      color: #fff;
+    }
+  }
 </style>

@@ -22,7 +22,9 @@
           <template v-if="selectedCategory">
             <div class="w-100"></div>
             <div class="col">
-              <button-component @clickOnButton="showPopularItems()"></button-component>
+              <button-component @clickOnButton="showPopularItems()">
+                Show all items
+              </button-component>
             </div>
           </template>
         </div>
