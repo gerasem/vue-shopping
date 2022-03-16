@@ -53,7 +53,9 @@
             </router-link>
 
             <router-link to="/">
-              <icon-component icon="heart" class="header__icon-container"></icon-component>
+              <icon-component icon="heart"
+                              class="header__icon-container header__icon-container--first">
+              </icon-component>
             </router-link>
 
             <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}">
@@ -222,6 +224,16 @@ export default {
     margin-left: 1.5rem;
     @media(max-width: $screen-md-max) {
       margin-left: 2.5rem;
+    }
+    @media(max-width: $screen-sm-max) {
+      margin-left: 1rem;
+    }
+
+    &--first {
+      margin-left: 1.5rem;
+      @media(max-width: $screen-md-max) {
+        margin-left: 0;
+      }
     }
   }
 }

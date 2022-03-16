@@ -8,14 +8,14 @@
         <h1>Cart</h1>
         <template v-if="itemsInCart.length">
           <div class="row">
-            <div class="col-sm-12 col-md-8">
+            <div class="col-lg-8 order-2 order-lg-1">
               <template v-for="item in itemsInCart" :key="item.title">
                 <cart-item :item="item">
 
                 </cart-item>
               </template>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-lg-4 order-1 order-lg-2">
               <div class="cart__form">
                 <div class="cart__info">
                   Free shipping from {{ $store.state.cart.freeShippingFrom }}€
@@ -168,6 +168,9 @@ export default {
     position: sticky;
     top: 40px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    @media(max-width: $screen-lg-max) {
+      margin: 2rem 0;
+    }
   }
 
   &__form-container {

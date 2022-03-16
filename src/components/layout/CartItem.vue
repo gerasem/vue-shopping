@@ -113,7 +113,7 @@ export default {
   &__item {
     display: flex;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem 1rem 1rem 0;
     position: relative;
 
     &:not(:last-of-type):after {
@@ -141,6 +141,16 @@ export default {
     transition: .2s;
     --pol-a: 10px;
     --pol-b: calc(100% - var(--pol-a));
+
+    @media(max-width: $screen-lg-max) {
+      width: 130px;
+      height: 100px;
+    }
+
+    @media(max-width: $screen-md-max) {
+      width: 100px;
+      height: 75px;
+    }
 
     &:hover {
       transform: scale(1.05);
