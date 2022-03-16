@@ -9,11 +9,11 @@
         <template v-if="itemsInCart.length">
           <div class="row">
             <div class="col-sm-12 col-md-8">
-              <div class="cart__items" v-for="item in itemsInCart" :key="item.title">
+              <template v-for="item in itemsInCart" :key="item.title">
                 <cart-item :item="item">
 
                 </cart-item>
-              </div>
+              </template>
             </div>
             <div class="col-sm-12 col-md-4">
               <div class="cart__form">
@@ -22,18 +22,35 @@
                 </div>
                 <div class="cart__form-container">
                   <div class="text-center">
-                    <div>
-                      Price: <span class="cart__form-price">{{ itemsPrice.toFixed(0) }}€</span>
+                    <div class="row">
+                      <div class="col text-end">
+                        Price:
+                      </div>
+                      <div class="col text-start">
+                        <span class="cart__form-price">{{ itemsPrice.toFixed(0) }}€</span>
+                      </div>
                     </div>
-                    <div>
-                      Shipping: <span class="cart__form-price">
-                      {{ freeShipping ? "Free" : `${$store.state.cart.shippingCost}€` }}
-                    </span>
+
+                    <div class="row">
+                      <div class="col text-end">
+                        Shipping:
+                      </div>
+                      <div class="col text-start">
+                        <span class="cart__form-price">
+                          {{ freeShipping ? "Free" : `${$store.state.cart.shippingCost}€` }}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      Total price: <span class="cart__form-price cart__form-price--total">{{
-                        totalPrice.toFixed(0)
-                      }}€</span>
+
+                    <div class="row">
+                      <div class="col text-end">
+                        Total price:
+                      </div>
+                      <div class="col text-start">
+                         <span class="cart__form-price cart__form-price--total">
+                           {{ totalPrice.toFixed(0) }}€
+                         </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -157,7 +174,6 @@ export default {
 
   &__form-price {
     font-weight: 600;
-    margin-left: .5rem;
 
     &--total {
       color: $color-primary;

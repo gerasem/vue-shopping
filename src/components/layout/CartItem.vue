@@ -111,7 +111,18 @@ export default {
   &__item {
     display: flex;
     align-items: center;
-    margin: 20px 0;
+    padding: 1rem 0;
+    position: relative;
+
+    &:not(:last-of-type):after {
+      position: absolute;
+      content: "";
+      width: calc(100% - 2rem);
+      left: 1rem;
+      bottom: 0;
+      height: 1px;
+      background: $color-separator;
+    }
   }
 
   &__image-container {
@@ -119,8 +130,9 @@ export default {
   }
 
   &__image {
-    width: 225px;
-    height: 170px;
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
     display: block;
     background-color: $background-gray;
     clip-path: $clip-path;
