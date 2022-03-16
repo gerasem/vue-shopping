@@ -98,10 +98,10 @@ export default {
   &__image-container {
     overflow: hidden;
     transition: .2s;
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: $screen-md-max) {
       min-width: 200px;
     }
-    @media (max-width: $screen-xs-max) {
+    @media (max-width: $screen-sm-max) {
       min-width: 100px;
     }
   }

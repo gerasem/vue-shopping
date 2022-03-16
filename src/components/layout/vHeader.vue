@@ -3,25 +3,35 @@
     <div class="container-fluid">
       <div class="row">
 
+        <div class="col-auto d-flex d-lg-none">
+          <icon-component icon="list"
+                          @clickOnIcon="toggleMenu()">
+          </icon-component>
+
+          <icon-component icon="search" class="header__icon-container"
+                          @clickOnIcon="showSearchInput()">
+          </icon-component>
+        </div>
+
         <div class="col">
           <router-link
               :to="{name: 'home', params: {locale: this.$i18n.locale}}"
               @click="handleOnClickOnLogo()"
               class="header__logo">
             Logo
-            <span class="header__slogan">Lorem ipsum</span>
+            <span class="header__slogan d-none d-lg-block">Lorem ipsum</span>
           </router-link>
         </div>
 
-        <v-language></v-language>
+        <v-language class="d-none d-md-block"></v-language>
 
-        <div class="col-auto">
+        <div class="col-auto d-none d-md-block">
           <router-link to="/" class="header__contact">
             Contact
           </router-link>
         </div>
 
-        <div class="col-auto">
+        <div class="col-auto d-none d-lg-block">
           <div class="header__search">
             <input type="text"
                    v-model="search"
@@ -38,16 +48,16 @@
         <div class="col-auto">
           <div class="header__icons">
 
-            <router-link to="/">
-              <icon-component icon="person" class="ms-3"></icon-component>
+            <router-link to="/" class="d-none d-md-block">
+              <icon-component icon="person" class="header__icon-container"></icon-component>
             </router-link>
 
             <router-link to="/">
-              <icon-component icon="heart" class="ms-3"></icon-component>
+              <icon-component icon="heart" class="header__icon-container"></icon-component>
             </router-link>
 
             <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}">
-              <icon-component icon="bag" :count="totalCount" class="ms-3">
+              <icon-component icon="bag" :count="totalCount" class="header__icon-container">
                 {{ totalCount.toFixed(0) }}
               </icon-component>
             </router-link>
@@ -119,6 +129,14 @@ export default {
       this.search = "";
       this.$store.commit('setSelectedCategory', null);
     },
+
+    showSearchInput() {
+
+    },
+
+    toggleMenu() {
+
+    }
   },
 
   watch: {
@@ -159,6 +177,10 @@ export default {
       color: $color-text;
       text-decoration: none;
     }
+
+    @media(max-width: $screen-md-max) {
+      justify-content: center;
+    }
   }
 
   &__slogan {
@@ -184,6 +206,7 @@ export default {
   &__search {
     position: relative;
     margin-top: -3px;
+    display: flex;
   }
 
   &__icons {
@@ -192,6 +215,13 @@ export default {
 
     a {
       text-decoration: none;
+    }
+  }
+
+  &__icon-container {
+    margin-left: 1.5rem;
+    @media(max-width: $screen-md-max) {
+      margin-left: 2.5rem;
     }
   }
 }

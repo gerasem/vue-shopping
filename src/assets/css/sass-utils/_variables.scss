@@ -19,15 +19,15 @@ $theme-colors: (
 );
 
 // breakpoints
-$screen-xs-max: 576px;
-$screen-sm-max: 768px;
-$screen-md-max: 992px;
-$screen-lg-max: 1200px;
+$screen-sm-max: 576px;
+$screen-md-max: 768px;
+$screen-lg-max: 992px;
+$screen-xl-max: 1200px;
 
 :root{
   --pol-a: 15px;
   --pol-b: calc(100% - var(--pol-a));
-  @media (max-width: $screen-sm-max) {
+  @media (max-width: $screen-md-max) {
     --pol-a: 10px;
     --pol-b: calc(100% - var(--pol-a));
   }

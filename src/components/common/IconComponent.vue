@@ -50,6 +50,7 @@ export default {
   font-size: 1.625rem;
   transition: .2s;
   color: currentColor;
+  cursor: pointer;
 
   &--heart {
     &:before {
@@ -68,19 +69,23 @@ export default {
     transform: translateY(-50%);
     font-size: 1rem;
     color: $text-muted;
+    &.bi-search {
+      cursor: default;
+    }
   }
 
   &--x-lg {
     font-size: 1.5rem;
     color: $text-muted;
     transition: .2s;
-    &:hover, &:focus{
+
+    &:hover, &:focus {
       color: $color-primary;
     }
   }
 
-  &--x-lg, &--bag-plus, &--dash-lg, &--plus-lg {
-    cursor: pointer;
+  &--search {
+    font-size: 1.3rem;
   }
 
   &--bag-plus {
@@ -92,6 +97,16 @@ export default {
     text-align: left;
     color: $color-text;
     transition: .2s;
+    @media(max-width: $screen-md-max) {
+      position: absolute;
+      top: -1.75rem;
+      padding: 0;
+      min-width: 0!important;
+      width: fit-content;
+      text-align: center;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 
   &__container {
@@ -99,6 +114,7 @@ export default {
     display: flex;
     align-items: center;
     color: $color-icons;
+    position: relative;
 
     &:hover, &:focus, &--active {
       color: $color-secondary;
