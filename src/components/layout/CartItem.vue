@@ -1,10 +1,10 @@
 <template>
   <div class="cart__item">
-    <a :href="item.slug">
+    <router-link :to="item.slug">
       <div class="cart__image-container">
         <img :src="item.image" :alt="item.title" class="cart__image">
       </div>
-    </a>
+    </router-link>
     <div class="cart__main">
       <div class="cart__prices">
         <div class="cart__price">{{ item.price }}€</div>
@@ -14,22 +14,24 @@
       <h4 class="cart__title">{{ item.title }}</h4>
     </div>
     <div class="cart__actions">
-      <div class="icon__link icon__link--cart icon--cursor"
-           :class="{'icon__link--disabled': item.quantity <= 1}"
-           @click="decrementCount()">
-        <i class="icon__content bi bi-dash-lg"></i>
-      </div>
+      <icon-component icon="dash-lg"
+                      :class="{'icon--disabled': item.quantity <= 1}"
+                      @clickOnIcon="decrementCount()">
+      </icon-component>
+
       <input type="text" class="cart__input" :value="getItemCount"
              @input="onChangeQuantity($event)">
-      <div class="icon__link icon__link--cart icon--cursor"
-           :class="{'icon__link--disabled': item.quantity >= $options.maxCount}"
-           @click="incrementCount()">
-        <i class="icon__content bi bi-plus-lg"></i>
-      </div>
+
+      <icon-component icon="plus-lg"
+                      :class="{'icon--disabled': item.quantity >= $options.maxCount}"
+                      @clickOnIcon="incrementCount()">
+      </icon-component>
     </div>
-    <div class="icon__link icon--cursor" @click="deleteItem()">
-      <i class="icon__content bi bi-x-lg"></i>
-    </div>
+
+    <icon-component icon="x-lg"
+                    class="ms-3"
+                    @clickOnIcon="deleteItem()">
+    </icon-component>
   </div>
 </template>
 

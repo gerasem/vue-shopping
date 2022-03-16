@@ -2,6 +2,7 @@
   <header class="header__container">
     <div class="container-fluid">
       <div class="row">
+
         <div class="col">
           <router-link
               :to="{name: 'home', params: {locale: this.$i18n.locale}}"
@@ -10,7 +11,6 @@
             Logo
             <span class="header__slogan">Lorem ipsum</span>
           </router-link>
-
         </div>
 
         <v-language></v-language>
@@ -28,27 +28,30 @@
                    class="form-control input__search"
                    :class="{'active': search}"
                    placeholder="Search ...">
-            <i :class="`icon__input bi ${search ? 'bi-x-lg icon--cursor' : 'bi-search'}`"
-               @click="handleClickOnSearchIcon()"></i>
+            <icon-component :icon="search ? 'x-lg' : 'search'"
+                            customClass="search-icon"
+                            @clickOnIcon="handleClickOnSearchIcon()">
+            </icon-component>
           </div>
         </div>
 
         <div class="col-auto">
           <div class="header__icons">
-            <router-link to="/" class="icon__link">
-              <i class="icon__content icon__content--user bi bi-person"></i>
+
+            <router-link to="/">
+              <icon-component icon="person" class="ms-3"></icon-component>
             </router-link>
-            <router-link to="/" class="icon__link">
-              <i class="icon__content bi bi-heart"></i>
+
+            <router-link to="/">
+              <icon-component icon="heart" class="ms-3"></icon-component>
             </router-link>
-            <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}"
-                         class="icon__link icon--cursor"
-                         :class="{'icon__link--active': isCartNotEmpty}">
-              <i class="icon__content icon__content--bag bi bi-bag"></i>
-              <span v-if="isCartNotEmpty" class="icon__count" :style="minHeightForTotalCount">
+
+            <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}">
+              <icon-component icon="bag" :count="totalCount" class="ms-3">
                 {{ totalCount.toFixed(0) }}
-              </span>
+              </icon-component>
             </router-link>
+
           </div>
         </div>
       </div>
@@ -92,16 +95,6 @@ export default {
   computed: {
     itemsInCartTotalCount() {
       return this.$store.getters.getTotal.quantity;
-    },
-
-    isCartNotEmpty() {
-      return this.itemsInCartTotalCount !== 0;
-    },
-
-    minHeightForTotalCount() {
-      return {
-        'min-width': this.totalCount.toFixed(0).toString().length + '8' + 'px',
-      }
     },
 
     search: {
@@ -191,18 +184,15 @@ export default {
   &__search {
     position: relative;
     margin-top: -3px;
-
-    .icon__input {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
   }
 
   &__icons {
     display: flex;
     align-items: start;
+
+    a {
+      text-decoration: none;
+    }
   }
 }
 </style>

@@ -1,18 +1,20 @@
 <template>
   <div class="col-md-3 col-sm-6 col-xs-12">
     <div class="item">
+
       <router-link to="/">
         <div class="item__image-container">
           <img :src="item.image ?? previewImage" :alt="item.title" class="img-fluid item__image">
         </div>
       </router-link>
+
       <div class="item__description">
         <div class="item__price">{{ item.price }}€</div>
         <div class="item__old-price" v-if="item.old_price">{{ item.old_price }}€</div>
         <div class="item__discount" v-if="getSale">{{ getSale }}%</div>
-        <div class="icon__link icon--cursor" @click="addToCart()">
-          <i class="icon__content icon__content--bag bi bi-bag-plus"></i>
-        </div>
+        <icon-component icon="bag-plus"
+                        @clickOnIcon="addToCart()">
+        </icon-component>
       </div>
       <h3 class="item__title">{{ item.title }}</h3>
     </div>
