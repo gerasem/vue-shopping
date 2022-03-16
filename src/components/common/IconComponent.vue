@@ -51,18 +51,14 @@ export default {
   transition: .2s;
   color: currentColor;
 
-  &--bag {
+  &--heart {
     &:before {
-      vertical-align: 0;
+      vertical-align: -0.2em;
     }
   }
 
   &--person {
     font-size: 1.75rem;
-
-    &:before {
-      vertical-align: 0;
-    }
   }
 
   &--search-icon {
@@ -75,7 +71,12 @@ export default {
   }
 
   &--x-lg {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    color: $text-muted;
+    transition: .2s;
+    &:hover, &:focus{
+      color: $color-primary;
+    }
   }
 
   &--x-lg, &--bag-plus, &--dash-lg, &--plus-lg {
@@ -83,7 +84,7 @@ export default {
   }
 
   &--bag-plus {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 
   &__count {
@@ -116,35 +117,5 @@ export default {
       cursor: not-allowed;
     }
   }
-
-  /* &__link {
-     color: $color-text;
-     transition: .2s;
-
-     &--active {
-       .icon__content {
-         color: $color-secondary;
-       }
-     }
-
-     &--disabled {
-       .icon__content {
-         opacity: .5;
-         cursor: not-allowed !important;
-       }
-     }
-
-     &:hover, &:focus {
-       color: $color-secondary;
-
-       .icon__content {
-         color: $color-secondary;
-       }
-     }
-
-     &--cart {
-       margin-left: 0;
-     }
-   }*/
 }
 </style>
