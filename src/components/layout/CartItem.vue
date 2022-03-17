@@ -16,7 +16,7 @@
     <div class="cart__actions">
       <icon-component icon="dash-lg"
                       :class="{'icon--disabled': item.quantity <= 1}"
-                      @clickOnIcon="decrementCount()">
+                      @click="decrementCount()">
       </icon-component>
 
       <input type="text" class="cart__input" :value="getItemCount"
@@ -24,13 +24,13 @@
 
       <icon-component icon="plus-lg"
                       :class="{'icon--disabled': item.quantity >= $options.maxCount}"
-                      @clickOnIcon="incrementCount()">
+                      @click="incrementCount()">
       </icon-component>
     </div>
 
     <icon-component icon="x-lg"
                     class="ms-3"
-                    @clickOnIcon="deleteItem()">
+                    @click="deleteItem()">
     </icon-component>
   </div>
 </template>

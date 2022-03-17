@@ -13,7 +13,7 @@
         <div class="item__old-price" v-if="item.old_price">{{ item.old_price }}€</div>
         <div class="item__discount" v-if="getSale">{{ getSale }}%</div>
         <icon-component icon="bag-plus"
-                        @clickOnIcon="addToCart()">
+                        @click="addToCart()">
         </icon-component>
       </div>
       <h3 class="item__title">{{ item.title }}</h3>

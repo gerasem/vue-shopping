@@ -1,7 +1,6 @@
 <template>
   <div class="icon__container"
-       :class="{'icon__container--active': count > 0 }"
-       @click="$emit('clickOnIcon')">
+       :class="{'icon__container--active': count > 0 }">
     <i class="icon bi"
        :class="`bi-${icon} icon--${customClass ?? icon}`">
     </i>

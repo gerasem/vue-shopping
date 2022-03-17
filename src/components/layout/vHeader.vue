@@ -4,12 +4,13 @@
       <div class="row">
 
         <div class="col-auto d-flex d-lg-none">
+          <!--                          todo: change to @click-->
           <icon-component icon="list"
-                          @clickOnIcon="toggleMenu()">
+                          @click="toggleMenu()">
           </icon-component>
 
           <icon-component icon="search" class="header__icon-container"
-                          @clickOnIcon="showSearchInput()">
+                          @click="showSearchInput()">
           </icon-component>
         </div>
 
@@ -40,7 +41,7 @@
                    placeholder="Search ...">
             <icon-component :icon="search ? 'x-lg' : 'search'"
                             customClass="search-icon"
-                            @clickOnIcon="handleClickOnSearchIcon()">
+                            @click="handleClickOnSearchIcon()">
             </icon-component>
           </div>
         </div>
@@ -69,6 +70,36 @@
       </div>
     </div>
   </header>
+
+  <div class="toggle__overlay" :class="{'toggle__overlay--opened': toggle}" @click="toggle = false"></div>
+  <div class="toggle__close" :class="{'toggle__close--opened': toggle}" @click="toggleMenu()">
+    <icon-component icon="x-lg"></icon-component>
+  </div>
+  <nav class="toggle__container" :class="{'toggle__container--opened': toggle}">
+
+    <div class="toggle__title">
+      <router-link
+          :to="{name: 'home', params: {locale: this.$i18n.locale}}"
+          @click="handleOnClickOnLogo()"
+          class="header__logo">
+        Logo
+      </router-link>
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Active</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled">Disabled</a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -93,6 +124,7 @@ export default {
   data() {
     return {
       totalCount: 0,
+      toggle: false,
     }
   },
 
@@ -137,7 +169,7 @@ export default {
     },
 
     toggleMenu() {
-
+      this.toggle = !this.toggle;
     }
   },
 
@@ -162,6 +194,9 @@ export default {
     width: 100%;
     display: flex;
     align-items: center;
+    z-index: 20;
+    background-color: #fff;
+    position: relative;
   }
 
   &__logo {
@@ -234,6 +269,65 @@ export default {
       @media(max-width: $screen-md-max) {
         margin-left: 0;
       }
+    }
+  }
+}
+
+.toggle {
+  &__container {
+    transition: .2s;
+    position: absolute;
+    background-color: #fff;
+    width: 70%;
+    z-index: 99;
+    min-height: 100vh;
+    left: -100%;
+    padding: 0 15px;
+
+    &--opened {
+      left: 0;
+      box-shadow: 10px 0 40px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__title {
+    display: flex;
+    height: 100px;
+    align-items: center;
+  }
+
+  &__close {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 98;
+    left: -100%;
+    transition: .2s;
+    background-color: $background-gray;
+    display: flex;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+
+    &--opened {
+      left: 70%;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    z-index: 97;
+    background-color: rgba(0, 0, 0, .4);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: none;
+
+    &--opened {
+      display: block;
     }
   }
 }
