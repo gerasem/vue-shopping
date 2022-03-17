@@ -1,7 +1,30 @@
-# Vue 3 + Vite
+# Demo online shop (vue)
+* vue
+* vuex
+* vite
+* vue-router
+* vue-i18n
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### run project `npm run dev`
 
-## Recommended IDE Setup
+## ToDo
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+```
+[x] Add item to cart
+[x] Save cart in LS
+[x] Save items in store (vuex)
+[x] Delete item from Cart
+[x] Delele all items from cart
+[x] Get items by category
+[x] Search (only items)
+[ ] Item page
+[ ] Toast component with info messages
+[ ] Confirm modal window
+[ ] Use data fro API
+[ ] Checkout form with vuelidate 
+[ ] Wish list
+[ ] User page
+...
+```
+![Demo home page](public/vue-shopping-2-demo-screen.png "Demo home page")
+![Demo cart](public/vue-shopping-1-demo-screen.png "Demo cart")
