@@ -51,9 +51,14 @@ export default {
 
   methods: {
     addToCart() {
-      this.$store.dispatch('addProductToCart', this.item.id)
+      this.$store.dispatch('addProductToCart', this.item.id);
+      this.$toast.add({summary: 'Item added to shopping cart', detail: 'cart', life: 3000, group: 'cart'});
     }
   },
+
+  unmounted() {
+    this.$toast.removeGroup('cart');
+  }
 }
 </script>
 

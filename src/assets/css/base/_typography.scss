@@ -21,6 +21,12 @@ h3 {
   margin: 10px 0;
 }
 
-a{
+a {
   color: $color-secondary;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    color: $color-secondary;
+    text-decoration: underline;
+  }
 }

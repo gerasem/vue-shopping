@@ -3,7 +3,31 @@
     <v-loading></v-loading>
   </template>
   <template v-else>
+
+    <Toast position="top-right" group="cart">
+      <template #message="slotProps">
+        <div class="flex-fill me-2">
+          {{ slotProps.message.summary }}
+          <template v-if="slotProps.message.detail === 'cart'">
+            <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}"
+                         class="ms-1">
+              Go to shopping cart
+            </router-link>
+          </template>
+          <template v-else>{{ slotProps.message.detail }}</template>
+        </div>
+      </template>
+    </Toast>
+
     <v-header></v-header>
+    <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          Hello, world! This is a toast message.
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
     <router-view/>
   </template>
 </template>
@@ -15,11 +39,13 @@ import {useI18n} from 'vue-i18n'
 import {SUPPORT_LOCALES} from './i18n'
 import vHeader from "@/components/layout/vHeader.vue";
 import vLoading from "@/components/layout/vLoading.vue";
+import Toast from 'primevue/toast';
 
 export default defineComponent({
   components: {
     vHeader,
-    vLoading
+    vLoading,
+    Toast,
   },
 
   data() {
@@ -60,10 +86,23 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss">
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.p-toast-message {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+.p-toast {
+  width: auto;
+}
+
+.p-component {
+  font-family: inherit !important;
 }
 </style>
