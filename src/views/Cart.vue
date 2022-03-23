@@ -5,7 +5,6 @@
   <Transition>
     <template v-if="!loading">
       <main class="container-fluid">
-        <Message severity="error" :closable="false">qwe</Message>
         <h1>Cart</h1>
         <template v-if="itemsInCart.length">
           <div class="row">
@@ -76,7 +75,6 @@
 import vLoading from "@/components/layout/vLoading.vue";
 import CartItem from "@/components/layout/CartItem.vue";
 import gsap from "gsap";
-import Message from 'primevue/message';
 
 export default {
   name: "Cart",
@@ -91,7 +89,6 @@ export default {
   components: {
     vLoading,
     CartItem,
-    Message,
   },
 
   created() {

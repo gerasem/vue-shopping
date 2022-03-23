@@ -8,13 +8,19 @@
       <template #message="slotProps">
         <div class="flex-fill me-2">
           {{ slotProps.message.summary }}
-          <template v-if="slotProps.message.detail === 'cart'">
-            <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}"
-                         class="ms-1">
-              Go to shopping cart
-            </router-link>
-          </template>
-          <template v-else>{{ slotProps.message.detail }}</template>
+          <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}"
+                       class="ms-1">
+            Go to shopping cart
+          </router-link>
+        </div>
+      </template>
+    </Toast>
+
+    <Toast position="top-right">
+      <template #message="slotProps">
+        <div class="flex-fill me-2">
+          {{ slotProps.message.summary }}
+          {{ slotProps.message.detail }}
         </div>
       </template>
     </Toast>
