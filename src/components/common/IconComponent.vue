@@ -68,6 +68,7 @@ export default {
     transform: translateY(-50%);
     font-size: 1rem;
     color: $text-muted;
+
     &.bi-search {
       cursor: default;
     }
@@ -100,7 +101,7 @@ export default {
       position: absolute;
       top: -1.75rem;
       padding: 0;
-      min-width: 0!important;
+      min-width: 0 !important;
       width: fit-content;
       text-align: center;
       left: 50%;

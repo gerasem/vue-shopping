@@ -14,12 +14,13 @@
       <h4 class="cart__title">{{ item.title }}</h4>
     </div>
     <div class="cart__actions">
+
       <icon-component icon="dash-lg"
                       :class="{'icon--disabled': item.quantity <= 1}"
                       @click="decrementCount()">
       </icon-component>
 
-      <input type="text" class="cart__input" :value="getItemCount"
+      <input type="text" class="cart__input" :value="getItemCount" @blur="onBlurQuantity($event)"
              @input="onChangeQuantity($event)">
 
       <icon-component icon="plus-lg"
@@ -36,7 +37,6 @@
 </template>
 
 <script>
-
 export default {
 
   data() {
@@ -57,7 +57,15 @@ export default {
     },
 
     getItemCount() {
-      return this.item.quantity === 0 ? '' : this.item.quantity;
+      if (!isFinite(this.item.quantity)) {
+        this.item.quantity = 1;
+        this.$toast.add({summary: 'only digits', life: 3000, group: 'error'});
+      }
+      if (this.item.quantity > this.$options.maxCount) {
+        this.item.quantity = this.$options.maxCount;
+        this.$toast.add({summary: 'More than 999', life: 3000, group: 'error'});
+      }
+      return this.item.quantity;
     },
   },
 
@@ -70,6 +78,18 @@ export default {
       let changedQuantity = +event.target.value;
 
       if (changedQuantity < 0) {
+        changedQuantity = 1;
+      }
+
+      this.$store.dispatch("changeQuantityOfItem", {
+        id: this.item.id,
+        quantity: changedQuantity,
+      });
+    },
+
+    onBlurQuantity(event) {
+      let changedQuantity = +event.target.value;
+      if (changedQuantity === 0) {
         changedQuantity = 1;
       }
 

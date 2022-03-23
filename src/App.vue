@@ -16,6 +16,14 @@
       </template>
     </Toast>
 
+    <Toast position="top-right" group="error" class="error-message">
+      <template #message="slotProps">
+        <div class="flex-fill me-2">
+          {{ slotProps.message.summary }}
+        </div>
+      </template>
+    </Toast>
+
     <Toast position="top-right">
       <template #message="slotProps">
         <div class="flex-fill me-2">
@@ -104,7 +112,19 @@ export default defineComponent({
   background-color: #fff;
 }
 
+.error-message {
+  .p-toast-message {
+    color: $color-primary;
+    box-shadow: 0 10px 40px $color-primary-opacity !important;
+  }
+
+  .p-toast-icon-close-icon {
+    color: $color-primary;
+  }
+}
+
 .p-toast {
+  min-width: 25rem;
   width: auto;
 }
 
