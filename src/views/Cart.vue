@@ -4,7 +4,7 @@
   </template>
   <Transition>
     <template v-if="!loading">
-      <main class="container-fluid">
+      <main class="container-fluid flex-grow-1">
         <h1>Cart</h1>
         <template v-if="itemsInCart.length">
           <div class="row">

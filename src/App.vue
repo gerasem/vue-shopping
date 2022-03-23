@@ -34,15 +34,11 @@
     </Toast>
 
     <v-header></v-header>
-    <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body">
-          Hello, world! This is a toast message.
-        </div>
-        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
+
     <router-view/>
+
+    <v-footer></v-footer>
+
   </template>
 </template>
 
@@ -52,6 +48,7 @@ import {useRouter} from 'vue-router'
 import {useI18n} from 'vue-i18n'
 import {SUPPORT_LOCALES} from './i18n'
 import vHeader from "@/components/layout/vHeader.vue";
+import vFooter from "@/components/layout/vFooter.vue";
 import vLoading from "@/components/layout/vLoading.vue";
 import Toast from 'primevue/toast';
 
@@ -60,6 +57,7 @@ export default defineComponent({
     vHeader,
     vLoading,
     Toast,
+    vFooter
   },
 
   data() {

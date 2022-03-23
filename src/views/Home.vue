@@ -5,7 +5,7 @@
   </template>
   <Transition>
     <template v-if="!loading">
-      <main class="container-fluid">
+      <main class="container-fluid flex-grow-1">
         <h1>{{ header }}</h1>
 
         <div class="row">
