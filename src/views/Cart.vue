@@ -63,9 +63,23 @@
           <p>Shopping cart is empty</p>
         </template>
 
-        <button-component v-show="itemsInCart.length" @clickOnButton="deleteCart()">
+        <button-component v-show="itemsInCart.length" @clickOnButton="openConfirmation()" class="btn-outline-primary"
+                          icon="trash">
           Delete cart
         </button-component>
+        <Dialog header="are you sure?" v-model:visible="display" :modal="true" :dismissableMask="true">
+          <div class="confirmation-content">
+            <span>Are you sure you want to proceed?</span>
+          </div>
+          <template #footer>
+            <button-component icon="x-lg" @click="closeConfirmation()" class="btn-outline-secondary" >
+              No
+            </button-component>
+            <button-component icon="check-lg" @click="deleteCart()" class="btn-outline-primary" autofocus>
+              Yes
+            </button-component>
+          </template>
+        </Dialog>
       </main>
     </template>
   </Transition>
@@ -75,6 +89,8 @@
 import vLoading from "@/components/layout/vLoading.vue";
 import CartItem from "@/components/layout/CartItem.vue";
 import gsap from "gsap";
+import Dialog from 'primevue/dialog';
+
 
 export default {
   name: "Cart",
@@ -83,12 +99,14 @@ export default {
       loading: true,
       itemsPrice: 0,
       totalPrice: 0,
+      display: false,
     }
   },
 
   components: {
     vLoading,
     CartItem,
+    Dialog
   },
 
   created() {
@@ -128,6 +146,14 @@ export default {
   },
 
   methods: {
+    openConfirmation() {
+      this.display = true;
+    },
+
+    closeConfirmation() {
+      this.display = false;
+    },
+
     deleteCart() {
       this.$store.dispatch("setLoading", true);
       this.$store.commit('deleteCart');

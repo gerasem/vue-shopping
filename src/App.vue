@@ -38,7 +38,6 @@
     <router-view/>
 
     <v-footer></v-footer>
-
   </template>
 </template>
 
@@ -57,7 +56,7 @@ export default defineComponent({
     vHeader,
     vLoading,
     Toast,
-    vFooter
+    vFooter,
   },
 
   data() {
