@@ -4,7 +4,7 @@
       <div class="row">
 
         <div class="col-auto d-flex d-lg-none">
-          <!--                          todo: change to @click-->
+
           <icon-component icon="list"
                           @click="toggleMenu()">
           </icon-component>
@@ -33,17 +33,7 @@
         </div>
 
         <div class="col-auto d-none d-lg-block">
-          <div class="header__search">
-            <input type="text"
-                   v-model="search"
-                   class="form-control input__search"
-                   :class="{'active': search}"
-                   placeholder="Search ...">
-            <icon-component :icon="search ? 'x-lg' : 'search'"
-                            customClass="search-icon"
-                            @click="handleClickOnSearchIcon()">
-            </icon-component>
-          </div>
+          <input-component class="header__search" inputType="search" v-model="search" placeholder="Search ..."></input-component>
         </div>
 
         <div class="col-auto">
@@ -153,12 +143,6 @@ export default {
 
 
   methods: {
-    handleClickOnSearchIcon() {
-      if (this.search) {
-        this.search = "";
-      }
-    },
-
     handleOnClickOnLogo() {
       this.search = "";
       this.$store.commit('setSelectedCategory', null);
