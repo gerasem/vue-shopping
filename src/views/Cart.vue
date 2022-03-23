@@ -63,10 +63,15 @@
           <p>Shopping cart is empty</p>
         </template>
 
-        <button-component v-show="itemsInCart.length" @clickOnButton="openConfirmation()" class="btn-outline-primary"
+        <button-component v-show="itemsInCart.length"
+                          @clickOnButton="openConfirmation()"
+                          class="btn-outline-primary"
                           icon="trash">
           Delete cart
         </button-component>
+
+        <input-component v-model="couponCode" class="d-inline-flex" placeholder="Coupon code" icon="ticket"></input-component>
+
         <Dialog header="are you sure?" v-model:visible="display" :modal="true" :dismissableMask="true">
           <div class="confirmation-content">
             <span>Are you sure you want to proceed?</span>
@@ -100,6 +105,7 @@ export default {
       itemsPrice: 0,
       totalPrice: 0,
       display: false,
+      couponCode: ""
     }
   },
 

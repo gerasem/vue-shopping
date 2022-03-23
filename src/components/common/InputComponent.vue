@@ -1,15 +1,22 @@
 <template>
-  <div>
+  <div class="input__container">
     <input type="text"
            :value="modelValue"
            @input="updateInput"
            class="form-control input"
            :class="{'active': modelValue}"
-           placeholder="Search ...">
+           :placeholder="placeholder">
 
-    <template v-if="inputType === 'search'">
-      <icon-component :icon="inputType ? 'x-lg' : 'search'"
-                      customClass="search-icon"
+    <template v-if="icon === 'search'">
+      <icon-component :icon="modelValue ? 'x-lg' : 'search'"
+                      customClass="icon"
+                      @click="handleClickOnSearchIcon()">
+      </icon-component>
+    </template>
+
+    <template v-else>
+      <icon-component :icon="icon"
+                      customClass="icon"
                       @click="handleClickOnSearchIcon()">
       </icon-component>
     </template>
@@ -21,7 +28,7 @@
 export default {
   name: "InputComponent",
   props: {
-    inputType: {
+    icon: {
       type: String,
       default: "",
       required: false,
@@ -65,6 +72,13 @@ export default {
   &:hover, &:focus, &.active {
     box-shadow: none;
     border-color: $color-secondary;
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 }
 </style>

@@ -16,7 +16,9 @@ export default {
       required: false,
     },
   },
+
   name: "ButtonComponent",
+
   emits: {
     clickOnButton: null,
   }
@@ -26,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 .button-component {
   color: $color-text;
-  margin: .5rem 0;
+  margin: .5rem 1rem;
   min-width: 6rem;
 
   &:hover, &:focus {

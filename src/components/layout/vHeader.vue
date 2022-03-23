@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-auto d-none d-lg-block">
-          <input-component class="header__search" inputType="search" v-model="search" placeholder="Search ..."></input-component>
+          <input-component class="header__search" icon="search" v-model="search" placeholder="Search ..."></input-component>
         </div>
 
         <div class="col-auto">
@@ -224,9 +224,7 @@ export default {
   }
 
   &__search {
-    position: relative;
     margin-top: -3px;
-    display: flex;
   }
 
   &__icons {
@@ -239,20 +237,21 @@ export default {
   }
 
   &__icon-container {
-    margin-left: 1.5rem;
-    @media(max-width: $screen-md-max) {
-      margin-left: 2.5rem;
-    }
-    @media(max-width: $screen-sm-max) {
-      margin-left: 1rem;
-    }
+    //todo edit margin
+    //margin-left: 1.5rem;
+    //@media(max-width: $screen-md-max) {
+    //  margin-left: 2.5rem;
+    //}
+    //@media(max-width: $screen-sm-max) {
+    //  margin-left: 1rem;
+    //}
 
-    &--first {
-      margin-left: 1.5rem;
-      @media(max-width: $screen-md-max) {
-        margin-left: 0;
-      }
-    }
+    //&--first {
+    //  margin-left: 1.5rem;
+    //  @media(max-width: $screen-md-max) {
+    //    margin-left: 0;
+    //  }
+    //}
   }
 }
 

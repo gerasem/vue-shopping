@@ -61,16 +61,17 @@ export default {
     font-size: 1.75rem;
   }
 
-  &--search-icon {
+  &--icon {
     position: absolute;
-    right: 0;
+    right: 0.75rem;
     top: 50%;
     transform: translateY(-50%);
     font-size: 1rem;
     color: $text-muted;
+    cursor: default;
 
-    &.bi-search {
-      cursor: default;
+    &.bi-x-lg {
+      cursor: pointer;
     }
   }
 
