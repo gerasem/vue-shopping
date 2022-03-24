@@ -5,7 +5,7 @@
 
         <div class="col-auto d-flex d-lg-none">
 
-          <icon-component icon="list"
+          <icon-component icon="list" class="me-3"
                           @click="toggleMenu()">
           </icon-component>
 
@@ -39,17 +39,17 @@
         <div class="col-auto">
           <div class="header__icons">
 
-            <router-link to="/" class="d-none d-md-block">
+            <router-link to="/" class="d-none d-md-block header__icon-link">
               <icon-component icon="person" class="header__icon-container"></icon-component>
             </router-link>
 
-            <router-link to="/">
+            <router-link to="/" class="header__icon-link">
               <icon-component icon="heart"
                               class="header__icon-container header__icon-container--first">
               </icon-component>
             </router-link>
 
-            <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}">
+            <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}" class="header__icon-link">
               <icon-component icon="bag" :count="totalCount" class="header__icon-container">
                 {{ totalCount.toFixed(0) }}
               </icon-component>
@@ -236,22 +236,14 @@ export default {
     }
   }
 
-  &__icon-container {
-    //todo edit margin
-    //margin-left: 1.5rem;
-    //@media(max-width: $screen-md-max) {
-    //  margin-left: 2.5rem;
-    //}
-    //@media(max-width: $screen-sm-max) {
-    //  margin-left: 1rem;
-    //}
-
-    //&--first {
-    //  margin-left: 1.5rem;
-    //  @media(max-width: $screen-md-max) {
-    //    margin-left: 0;
-    //  }
-    //}
+  &__icon-link {
+    margin-left: 1rem;
+    @media(max-width: $screen-md-max) {
+      margin-left: 1.5rem;
+    }
+    @media(max-width: $screen-sm-max) {
+      margin-left: 1rem;
+    }
   }
 }
 

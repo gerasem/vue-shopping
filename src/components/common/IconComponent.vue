@@ -89,6 +89,10 @@ export default {
     font-size: 1.3rem;
   }
 
+  &--list {
+    font-size: 2rem;
+  }
+
   &--bag-plus {
     font-size: 1.5rem;
   }
