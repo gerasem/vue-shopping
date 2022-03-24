@@ -9,7 +9,7 @@ const instance = axios.create({
 
 import categories from "./mock/categories.json"
 import items from "./mock/items.json"
-
+import coupons from "./mock/coupons.json"
 
 export const dataAPI = {
     getCategories() {
@@ -18,27 +18,14 @@ export const dataAPI = {
 
     getAllItems(id) {
         return items;
+    },
+
+    checkCoupon(couponCode) {
+        if (coupons[couponCode]) {
+            console.log('coupon is in list');
+            return coupons[couponCode];
+        } else {
+            return false;
+        }
     }
-    /*
-        getAccreditation(tan) {
-            return instance.get(`/foo/${bar}`)
-                .then(response => {
-                    return response.data
-                })
-                .catch(e => {
-                    console.error('', e);
-                })
-        },
-        sendInvites(data) {
-            return instance.post('/foo/bar', {
-                data
-            })
-                .then(() => {
-                    return true
-                })
-                .catch(e => {
-                    console.error('', e);
-                    return false;
-                })
-        }*/
 }

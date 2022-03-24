@@ -27,7 +27,10 @@
                         Price:
                       </div>
                       <div class="col text-start">
-                        <span class="cart__form-price">{{ itemsPrice.toFixed(0) }}€</span>
+                        <span
+                            class="cart__form-price">{{
+                            itemsPrice > 1 ? itemsPrice.toFixed(2) : itemsPrice.toPrecision(2)
+                          }}€</span>
                       </div>
                     </div>
 
@@ -37,25 +40,35 @@
                       </div>
                       <div class="col text-start">
                         <span class="cart__form-price">
-                          {{ freeShipping ? "Free" : `${$store.state.cart.shippingCost}€` }}
+                          {{ freeShipping ? "Free" : `${$store.state.cart.shippingCost.toFixed(2)}€` }}
                         </span>
                       </div>
                     </div>
 
+                    <div class="row" v-if="couponValue">
+                      <div class="col text-end cart__form-price--discount">
+                        Discount:
+                      </div>
+                      <div class="col text-start">
+                         <span class="cart__form-price cart__form-price--discount">
+                           {{ couponValue }} {{ couponType }}
+                         </span>
+                      </div>
+                    </div>
+
                     <div class="row">
-                      <div class="col text-end">
+                      <div class="col text-end fw-bold">
                         Total price:
                       </div>
                       <div class="col text-start">
                          <span class="cart__form-price cart__form-price--total">
-                           {{ totalPrice.toFixed(0) }}€
+                           {{ totalPrice > 1 ? totalPrice.toFixed(2) : totalPrice.toPrecision(2) }}€
                          </span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </template>
@@ -70,14 +83,15 @@
           Delete cart
         </button-component>
 
-        <input-component v-model="couponCode" class="d-inline-flex" placeholder="Coupon code" icon="ticket"></input-component>
+        <input-component v-model="couponCode" class="d-inline-flex" placeholder="Coupon code"
+                         icon="ticket"></input-component>
 
         <Dialog header="are you sure?" v-model:visible="display" :modal="true" :dismissableMask="true">
           <div class="confirmation-content">
             <span>Are you sure you want to proceed?</span>
           </div>
           <template #footer>
-            <button-component icon="x-lg" @click="closeConfirmation()" class="btn-outline-secondary" >
+            <button-component icon="x-lg" @click="closeConfirmation()" class="btn-outline-secondary">
               No
             </button-component>
             <button-component icon="check-lg" @click="deleteCart()" class="btn-outline-primary" autofocus>
@@ -85,6 +99,7 @@
             </button-component>
           </template>
         </Dialog>
+
       </main>
     </template>
   </Transition>
@@ -95,6 +110,8 @@ import vLoading from "@/components/layout/vLoading.vue";
 import CartItem from "@/components/layout/CartItem.vue";
 import gsap from "gsap";
 import Dialog from 'primevue/dialog';
+import {dataAPI} from "../api/api";
+import {mapGetters, mapState} from "vuex";
 
 
 export default {
@@ -105,7 +122,7 @@ export default {
       itemsPrice: 0,
       totalPrice: 0,
       display: false,
-      couponCode: ""
+      couponCode: "",
     }
   },
 
@@ -125,9 +142,16 @@ export default {
   },
 
   computed: {
-    search() {
-      return this.$store.state.items.search;
-    },
+    ...mapState({
+      search: state => state.items.search,
+      couponType: state => state.cart.couponType,
+      couponValue: state => state.cart.couponValue,
+    }),
+
+    ...mapGetters([
+      "freeShipping",
+      "totalPriceWithShipping",
+    ]),
 
     itemsInCartTotalPrice() {
       return this.$store.getters.getTotal.price;
@@ -141,14 +165,6 @@ export default {
         this.$store.commit('addProductToCart', value)
       }
     },
-
-    freeShipping() {
-      return this.$store.getters.freeShipping;
-    },
-
-    totalPriceWithShipping() {
-      return this.$store.getters.totalPriceWithShipping;
-    }
   },
 
   methods: {
@@ -182,6 +198,15 @@ export default {
     totalPriceWithShipping(n) {
       gsap.to(this, {duration: 0.5, totalPrice: Number(n) || 0})
     },
+
+    couponCode() {
+      if (!dataAPI.checkCoupon(this.couponCode)) {
+        console.log('wrong coupon code');
+        this.$store.commit('setCoupon', null);
+      } else {
+        this.$store.commit('setCoupon', dataAPI.checkCoupon(this.couponCode));
+      }
+    }
   },
 }
 </script>
@@ -214,6 +239,10 @@ export default {
     font-weight: 600;
 
     &--total {
+      color: $color-secondary;
+    }
+
+    &--discount {
       color: $color-primary;
     }
   }

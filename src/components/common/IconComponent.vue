@@ -70,8 +70,12 @@ export default {
     color: $text-muted;
     cursor: default;
 
-    &.bi-x-lg {
+    &.bi-x-lg, &.bi-ticket {
       cursor: pointer;
+
+      &:hover, &:focus {
+        color: $color-secondary;
+      }
     }
   }
 

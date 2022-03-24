@@ -3,6 +3,8 @@
     <input type="text"
            :value="modelValue"
            @input="updateInput"
+           @blur="handleOnBlur"
+           @keydown.enter="handleOnBlur"
            class="form-control input"
            :class="{'active': modelValue}"
            :placeholder="placeholder">
@@ -10,14 +12,14 @@
     <template v-if="icon === 'search'">
       <icon-component :icon="modelValue ? 'x-lg' : 'search'"
                       customClass="icon"
-                      @click="handleClickOnSearchIcon()">
+                      @click="handleClickOnIcon">
       </icon-component>
     </template>
 
     <template v-else>
       <icon-component :icon="icon"
                       customClass="icon"
-                      @click="handleClickOnSearchIcon()">
+                      @click="handleClickOnIcon">
       </icon-component>
     </template>
 
@@ -51,14 +53,22 @@ export default {
 
   methods: {
     updateInput(event) {
-      this.$emit('update:modelValue', event.target.value)
-    },
-
-    handleClickOnSearchIcon() {
-      if (this.modelValue) {
-        this.$emit('update:modelValue', "")
+      if (this.icon === "search") {
+        this.$emit('update:modelValue', event.target.value);
       }
     },
+
+    handleClickOnIcon() {
+      if (this.icon === "search" && this.modelValue) {
+        this.$emit('update:modelValue', "");
+      }
+    },
+
+    handleOnBlur(event) {
+      if (this.icon === "ticket") {
+        this.$emit('update:modelValue', event.target.value.trim().toLowerCase());
+      }
+    }
   }
 }
 </script>

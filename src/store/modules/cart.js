@@ -5,6 +5,8 @@ export const cart = {
             cart: [],
             freeShippingFrom: 80,
             shippingCost: 5,
+            couponType: null,
+            couponValue: null,
         }
     },
     getters: {
@@ -18,6 +20,12 @@ export const cart = {
                 return total;
             }, {price: 0, quantity: 0});
             if (total.price < 0 || total.quantity < 0) return {price: 0, quantity: 0};
+            if (state.couponValue) {
+                if (state.couponType === "%") {
+                    total.price = total.price * (100 - state.couponValue) / 100;
+                    return total;
+                }
+            }
             return total;
         },
 
@@ -26,7 +34,7 @@ export const cart = {
         },
 
         totalPriceWithShipping(state, getters) {
-            if(getters.freeShipping) {
+            if (getters.freeShipping) {
                 return getters.getTotal.price;
             } else {
                 return getters.getTotal.price + state.shippingCost;
@@ -81,6 +89,16 @@ export const cart = {
         deleteItemFromCart(state, item) {
             state.itemsInCart = state.itemsInCart.filter(i => i !== item);
             state.cart = state.cart.filter(i => i.id !== item.id);
+        },
+
+        setCoupon(state, coupon) {
+            if (!coupon) {
+                state.couponType = null;
+                state.couponValue = null;
+            } else {
+                state.couponType = coupon.type;
+                state.couponValue = coupon.value;
+            }
         }
     },
     actions: {
