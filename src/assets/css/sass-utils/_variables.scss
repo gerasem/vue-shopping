@@ -19,8 +19,6 @@ $theme-colors: (
         //"dark":       $dark
 );
 
-$font-weight-bold: 600;
-
 // breakpoints
 $screen-sm-max: 576px;
 $screen-md-max: 768px;
@@ -40,3 +38,5 @@ $clip-path: polygon(var(--pol-a) 0%,  var(--pol-b) 0%, 100% var(--pol-a), 100%  
 
 // overwrite standard bootstrap variables
 $border-radius: 0;
+$border-color: #ebebeb;
+$font-weight-bold: 600;

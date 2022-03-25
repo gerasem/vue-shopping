@@ -8,14 +8,14 @@
         <h1>Cart</h1>
         <template v-if="itemsInCart.length">
           <div class="row">
-            <div class="col-lg-8 order-2 order-lg-1">
+            <div class="col-lg-8">
               <template v-for="item in itemsInCart" :key="item.title">
                 <cart-item :item="item">
 
                 </cart-item>
               </template>
             </div>
-            <div class="col-lg-4 order-1 order-lg-2">
+            <div class="col-lg-4">
               <div class="cart__form">
                 <div class="cart__info">
                   Free shipping from {{ $store.state.cart.freeShippingFrom }}€
@@ -66,6 +66,24 @@
                          </span>
                       </div>
                     </div>
+
+                    <div class="row text-start">
+                      <div class="col">
+                        <input-component v-model="couponCode" placeholder="Coupon code"
+                                         icon="ticket"
+                                         description="For example: <strong>test</strong> or <strong>abc</strong>"></input-component>
+                      </div>
+                    </div>
+
+                    <div class="row text-start">
+                      <div class="col">
+                        <button-component v-show="itemsInCart.length"
+                                          class="btn-primary"
+                                          icon="bag-check">
+                          Buy
+                        </button-component>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -82,9 +100,6 @@
                           icon="trash">
           Delete cart
         </button-component>
-
-        <input-component v-model="couponCode" class="d-inline-flex" placeholder="Coupon code"
-                         icon="ticket"></input-component>
 
         <Dialog header="are you sure?" v-model:visible="display" :modal="true" :dismissableMask="true">
           <div class="confirmation-content">
@@ -122,7 +137,6 @@ export default {
       itemsPrice: 0,
       totalPrice: 0,
       display: false,
-      couponCode: "",
     }
   },
 
@@ -148,10 +162,10 @@ export default {
       couponValue: state => state.cart.couponValue,
     }),
 
-    ...mapGetters([
-      "freeShipping",
-      "totalPriceWithShipping",
-    ]),
+    ...mapGetters({
+      freeShipping: "freeShipping",
+      totalPriceWithShipping: "totalPriceWithShipping",
+    }),
 
     itemsInCartTotalPrice() {
       return this.$store.getters.getTotal.price;
@@ -165,6 +179,30 @@ export default {
         this.$store.commit('addProductToCart', value)
       }
     },
+
+    couponCode: {
+      get() {
+        return this.$store.state.cart.couponCode;
+      },
+      set(value) {
+        const coupon = dataAPI.checkCoupon(value);
+        if (coupon) {
+          if (this.totalPrice < coupon.min_order) {
+            this.$store.commit('setCoupon', null);
+            this.$toast.add({
+              summary: 'Min order for this coupon is ' + coupon.min_order + '€',
+              life: 3000,
+              group: 'error'
+            });
+          } else {
+            this.$store.commit('setCoupon', coupon);
+          }
+        } else {
+          this.$store.commit('setCoupon', null);
+        }
+        this.$store.commit('setCouponCode', value);
+      }
+    }
   },
 
   methods: {
@@ -181,7 +219,6 @@ export default {
       this.$store.commit('deleteCart');
       this.$store.dispatch("setLoading", false);
     },
-
   },
 
   watch: {
@@ -199,12 +236,9 @@ export default {
       gsap.to(this, {duration: 0.5, totalPrice: Number(n) || 0})
     },
 
-    couponCode() {
-      if (!dataAPI.checkCoupon(this.couponCode)) {
-        console.log('wrong coupon code');
-        this.$store.commit('setCoupon', null);
-      } else {
-        this.$store.commit('setCoupon', dataAPI.checkCoupon(this.couponCode));
+    couponValue(newValue) {
+      if (!newValue) {
+        this.couponCode = "";
       }
     }
   },

@@ -5,8 +5,10 @@ export const cart = {
             cart: [],
             freeShippingFrom: 80,
             shippingCost: 5,
+            couponCode: "",
             couponType: null,
             couponValue: null,
+            couponMinOrder: null
         }
     },
     getters: {
@@ -21,9 +23,19 @@ export const cart = {
             }, {price: 0, quantity: 0});
             if (total.price < 0 || total.quantity < 0) return {price: 0, quantity: 0};
             if (state.couponValue) {
+                if (total.price < state.couponMinOrder) {
+                    state.couponValue = null;
+                    // total.price = total.price - state.couponValue;
+                }
                 if (state.couponType === "%") {
                     total.price = total.price * (100 - state.couponValue) / 100;
                     return total;
+                }
+
+                if (state.couponType === "€") {
+                    if (total.price > state.couponValue) {
+                        total.price = total.price - state.couponValue;
+                    }
                 }
             }
             return total;
@@ -98,13 +110,17 @@ export const cart = {
             } else {
                 state.couponType = coupon.type;
                 state.couponValue = coupon.value;
+                state.couponMinOrder = coupon.min_order;
             }
+        },
+
+        setCouponCode(state, couponCode) {
+            state.couponCode = couponCode;
         }
     },
     actions: {
         initShoppingCart({commit, state, rootGetters}) {
             commit('getItemsFromLS');
-            console.log('get cartLS', state.cart)
             if (state.cart) {
                 state.cart.forEach(item => {
                     const itemInDB = rootGetters.getSearchedItem(item.id);

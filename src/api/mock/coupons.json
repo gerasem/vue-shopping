@@ -1,6 +1,12 @@
 {
   "test": {
     "type": "%",
-    "value": 10
+    "value": 10,
+    "min_order": 100
+  },
+  "abc": {
+    "type": "€",
+    "value": 50,
+    "min_order": 100
   }
 }

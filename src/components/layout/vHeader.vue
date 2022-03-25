@@ -1,7 +1,7 @@
 <template>
   <header class="header__container">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row align-items-center">
 
         <div class="col-auto d-flex d-lg-none">
 
@@ -33,24 +33,24 @@
         </div>
 
         <div class="col-auto d-none d-lg-block">
-          <input-component class="header__search" icon="search" v-model="search" placeholder="Search ..."></input-component>
+          <input-component class="header__search" icon="search" v-model="search" placeholder="Search ..."
+                           :onlyUnderline="true"></input-component>
         </div>
 
         <div class="col-auto">
           <div class="header__icons">
 
             <router-link to="/" class="d-none d-md-block header__icon-link">
-              <icon-component icon="person" class="header__icon-container"></icon-component>
+              <icon-component icon="person"></icon-component>
             </router-link>
 
-            <router-link to="/" class="header__icon-link">
-              <icon-component icon="heart"
-                              class="header__icon-container header__icon-container--first">
+            <router-link to="/" class="header__icon-link  header__icon-link--first">
+              <icon-component icon="heart">
               </icon-component>
             </router-link>
 
             <router-link :to="{name: 'cart', params: {locale: this.$i18n.locale}}" class="header__icon-link">
-              <icon-component icon="bag" :count="totalCount" class="header__icon-container">
+              <icon-component icon="bag" :count="totalCount">
                 {{ totalCount.toFixed(0) }}
               </icon-component>
             </router-link>
@@ -223,10 +223,6 @@ export default {
     }
   }
 
-  &__search {
-    margin-top: -3px;
-  }
-
   &__icons {
     display: flex;
     align-items: start;
@@ -243,6 +239,12 @@ export default {
     }
     @media(max-width: $screen-sm-max) {
       margin-left: 1rem;
+    }
+
+    &--first {
+      @media(max-width: $screen-md-max) {
+        margin-left: 0;
+      }
     }
   }
 }

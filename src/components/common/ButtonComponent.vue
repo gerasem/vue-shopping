@@ -2,7 +2,7 @@
   <button type="button"
           @click="$emit('clickOnButton')"
           class="btn button-component">
-    <i v-if="icon" :class="`bi bi-${icon}`"></i>
+    <i v-if="icon" :class="`bi bi-${icon}`" class="me-1"></i>
     <slot>Ok</slot>
   </button>
 </template>
@@ -28,8 +28,10 @@ export default {
 <style lang="scss" scoped>
 .button-component {
   color: $color-text;
-  margin: .5rem 1rem;
-  min-width: 6rem;
+  margin: 1rem 1rem .5rem 0;
+  padding: 0 2rem;
+  min-width: 10rem;
+  height: 3.125rem;
 
   &:hover, &:focus {
     color: #fff;
@@ -37,6 +39,10 @@ export default {
 
   @media(max-width: $screen-sm-max) {
     width: 45% !important;
+  }
+
+  &.btn-primary{
+    color: #fff;
   }
 }
 
