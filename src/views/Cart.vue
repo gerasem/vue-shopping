@@ -24,7 +24,7 @@
                   <div class="text-center">
                     <div class="row">
                       <div class="col text-end">
-                        Price:
+                        Sub-Total:
                       </div>
                       <div class="col text-start">
                         <span
@@ -158,8 +158,8 @@ export default {
   computed: {
     ...mapState({
       search: state => state.items.search,
-      couponType: state => state.cart.couponType,
-      couponValue: state => state.cart.couponValue,
+      couponType: state => state.cart.coupon.type,
+      couponValue: state => state.cart.coupon.value,
     }),
 
     ...mapGetters({
@@ -182,7 +182,7 @@ export default {
 
     couponCode: {
       get() {
-        return this.$store.state.cart.couponCode;
+        return this.$store.state.cart.coupon.code;
       },
       set(value) {
         const coupon = dataAPI.checkCoupon(value);

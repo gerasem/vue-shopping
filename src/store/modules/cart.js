@@ -5,10 +5,13 @@ export const cart = {
             cart: [],
             freeShippingFrom: 80,
             shippingCost: 5,
-            couponCode: "",
-            couponType: null,
-            couponValue: null,
-            couponMinOrder: null
+            coupon: {
+                code: "",
+                type: null,
+                value: null,
+                minOrder: null
+            },
+
         }
     },
     getters: {
@@ -22,19 +25,23 @@ export const cart = {
                 return total;
             }, {price: 0, quantity: 0});
             if (total.price < 0 || total.quantity < 0) return {price: 0, quantity: 0};
-            if (state.couponValue) {
-                if (total.price < state.couponMinOrder) {
-                    state.couponValue = null;
-                    // total.price = total.price - state.couponValue;
+            if (state.coupon.value) {
+                if (total.price < state.coupon.minOrder) {
+                    state.coupon.value = null;
+                    debugger
+                    // total.price = total.price - state.coupon.value;
                 }
-                if (state.couponType === "%") {
-                    total.price = total.price * (100 - state.couponValue) / 100;
+                if (state.coupon.type === "%") {
+                    total.price = total.price * (100 - state.coupon.value) / 100;
+                    debugger
                     return total;
                 }
 
-                if (state.couponType === "€") {
-                    if (total.price > state.couponValue) {
-                        total.price = total.price - state.couponValue;
+                if (state.coupon.type === "€") {
+                    if (total.price > state.coupon.value) {
+                        total.price = total.price - state.coupon.value;
+                        debugger
+                        return total;
                     }
                 }
             }
@@ -104,18 +111,21 @@ export const cart = {
         },
 
         setCoupon(state, coupon) {
+            debugger
             if (!coupon) {
-                state.couponType = null;
-                state.couponValue = null;
+                state.coupon.type = null;
+                state.coupon.value = null;
+                debugger
+                state.coupon.code = "";
             } else {
-                state.couponType = coupon.type;
-                state.couponValue = coupon.value;
-                state.couponMinOrder = coupon.min_order;
+                state.coupon.type = coupon.type;
+                state.coupon.value = coupon.value;
+                state.coupon.minOrder = coupon.min_order;
             }
         },
 
         setCouponCode(state, couponCode) {
-            state.couponCode = couponCode;
+            state.coupon.code = couponCode;
         }
     },
     actions: {
